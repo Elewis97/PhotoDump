@@ -20,8 +20,8 @@ import os
 import logging
 import json
 from google.appengine.ext import ndb
+from google.appengine.ext import vendor
 from google.appengine.api import users
-
 
 class PhotoGroup(ndb.Model):
     group_name = ndb.StringProperty(required=True)
@@ -73,7 +73,8 @@ class GroupfeedHandler(webapp2.RequestHandler):
 #The imgur API will then return a link and the link will be stored in a Photo class
 class UploadHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja2_environment.get_template()
+        template = jinja2_environment.get_template("templates/upload.html")
+        self.response.write("Hello world")
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
