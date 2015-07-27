@@ -38,6 +38,7 @@ class Photo(ndb.Model):
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
+        # this is the login section
         user = users.get_current_user()
         if user:
             greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
@@ -45,6 +46,7 @@ class WelcomeHandler(webapp2.RequestHandler):
         else:
             greeting = ('<a href="%s">Sign in or register</a>.' %
                         users.create_login_url('/main'))
+        # this renders the template welcome.html
         template = jinja2_environment.get_template('templates/welcome.html')
         self.response.write('Hello world!')
         self.response.write(template.render(greeting=greeting))
