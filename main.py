@@ -25,7 +25,6 @@ from google.appengine.ext import ndb
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('templates/welcome.html')
-        self.response.write('Hello world!')
         self.response.write(template.render())
 
 
