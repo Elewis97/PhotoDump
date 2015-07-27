@@ -23,6 +23,9 @@ from google.appengine.ext import ndb
 from google.appengine.ext import vendor
 from google.appengine.api import users
 
+# This line adds the imgur API library to the project
+vendor.add('lib')
+
 class PhotoGroup(ndb.Model):
     group_name = ndb.StringProperty(required=True)
     created_date = ndb.DateTimeProperty(auto_now_add=True)
