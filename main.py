@@ -24,7 +24,7 @@ from google.appengine.ext import vendor
 from google.appengine.api import users
 
 # This line adds the imgur API library to the project
-vendor.add('lib')
+# vendor.add('lib')
 
 class PhotoGroup(ndb.Model):
     group_name = ndb.StringProperty(required=True)
@@ -46,6 +46,7 @@ class Photo(ndb.Model):
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
         # this is the login section
+        logging.info("WELCOME HANDLER ENTERED")
         user = users.get_current_user()
         if user:
             greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
