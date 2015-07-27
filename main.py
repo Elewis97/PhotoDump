@@ -15,10 +15,35 @@
 # limitations under the License.
 #
 import webapp2
+import jinja2
+import os
+import logging
+import json
+from google.appengine.ext import ndb
 
-class MainHandler(webapp2.RequestHandler):
+
+class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
+        template = jinja2_environment.get_template('templates/welcome.html')
         self.response.write('Hello world!')
+        self.response.write(template.render())
+
+
+class NewsfeedHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja2_environment.get_template('templates/newsfeed.html')
+        self.response.write('Hello world!')
+        self.response.write(template.render())
+
+class GroupfeedHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja2_environment.get_template('templates/groupfeed.html')
+        self.response.write('Hello world!')
+        self.response.write(template.render())
+
+
+jinja2_environment = jinja2.Environment(loader=
+    jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
