@@ -69,9 +69,12 @@ class GroupfeedHandler(webapp2.RequestHandler):
         self.response.write('Hello world!')
         self.response.write(template.render())
 
+#This is the upload handler it deals with uploading photos.
+#The photo will be uploaded to imgur using the imgur upload API
+#The imgur API will then return a link and the link will be stored in a Photo class
 class UploadHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja2_environment.get_template
+        template = jinja2_environment.get_template()
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
