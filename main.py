@@ -49,7 +49,7 @@ class WelcomeHandler(webapp2.RequestHandler):
                 (user.nickname(), users.create_logout_url('/')))
         else:
             greeting = ('<a href="%s">Sign in or register</a>.' %
-                        users.create_login_url('/main'))
+                        users.create_login_url('/newsfeed'))
         # this renders the template welcome.html
         template = jinja2_environment.get_template('templates/welcome.html')
         self.response.write('Hello world!')
