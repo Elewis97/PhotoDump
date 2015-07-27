@@ -38,6 +38,7 @@ class WelcomeHandler(webapp2.RequestHandler):
         self.response.write(template.render(greeting=greeting))
 
 
+
 class NewsfeedHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('templates/newsfeed.html')
@@ -55,5 +56,7 @@ jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 app = webapp2.WSGIApplication([
-    ('/', WelcomeHandler)
+    ('/', WelcomeHandler),
+    ('/newsfeed', NewsfeedHandler),
+    ('/groupfeed', GroupfeedHandler)
 ], debug=True)
