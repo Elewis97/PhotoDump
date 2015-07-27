@@ -29,7 +29,7 @@ class PhotoGroup(ndb.Model):
     is_group_public = ndb.BooleanProperty(required=False, default=False)
     likes = ndb.IntegerProperty(default=0)
     dislikes = ndb.IntegerProperty(default=0)
-    photo_links = ndb.StringListProperty()
+    photo_links = ndb.StringProperty()
 
 class Photo(ndb.Model):
     caption = ndb.StringProperty(required=False)
