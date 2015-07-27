@@ -20,6 +20,8 @@ import os
 import logging
 import json
 from google.appengine.ext import ndb
+from google.appengine.api import users
+
 
 class PhotoGroup(ndb.Model):
     group_name = ndb.StringProperty(required=True)
@@ -36,8 +38,17 @@ class Photo(ndb.Model):
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
+        user = users.get_current_user()
+        if user:
+            greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
+                (user.nickname(), users.create_logout_url('/')))
+        else:
+            greeting = ('<a href="%s">Sign in or register</a>.' %
+                        users.create_login_url('/main'))
         template = jinja2_environment.get_template('templates/welcome.html')
-        self.response.write(template.render())
+        self.response.write('Hello world!')
+        self.response.write(template.render(greeting=greeting))
+
 
 
 class NewsfeedHandler(webapp2.RequestHandler):
