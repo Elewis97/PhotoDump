@@ -21,6 +21,18 @@ import logging
 import json
 from google.appengine.ext import ndb
 
+class PhotoGroup(ndb.Model):
+    group_name = ndb.StringProperty(required=True)
+    created_date = ndb.DateTimeProperty(auto_now_add=True)
+    is_group_public = ndb.BooleanProperty(required=False, default=False)
+    likes = ndb.IntegerProperty(default=0)
+    dislikes = ndb.IntegerProperty(default=0)
+    photo_links = ndb.StringListProperty()
+
+class Photo(ndb.Model):
+    caption = ndb.StringProperty(required=False)
+    date_created = ndb.DateTimeProperty(auto_now_add=True)
+    uploaded_by = ndb.StringProperty()
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
