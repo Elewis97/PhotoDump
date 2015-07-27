@@ -29,12 +29,16 @@ class PhotoGroup(ndb.Model):
     is_group_public = ndb.BooleanProperty(required=False, default=False)
     likes = ndb.IntegerProperty(default=0)
     dislikes = ndb.IntegerProperty(default=0)
-    photo_links = ndb.StringProperty()
+    photo_links = ndb.StringProperty(repeated=True)
 
 class Photo(ndb.Model):
     caption = ndb.StringProperty(required=False)
     date_created = ndb.DateTimeProperty(auto_now_add=True)
     uploaded_by = ndb.StringProperty()
+    likes = ndb.IntegerProperty(default=0)
+    dislikes = ndb.IntegerProperty(default=0)
+    url = ndb.StringProperty(required=True)
+
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
@@ -63,6 +67,9 @@ class GroupfeedHandler(webapp2.RequestHandler):
         self.response.write('Hello world!')
         self.response.write(template.render())
 
+class UploadHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja2_environment.get_template
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -70,5 +77,6 @@ jinja2_environment = jinja2.Environment(loader=
 app = webapp2.WSGIApplication([
     ('/', WelcomeHandler),
     ('/newsfeed', NewsfeedHandler),
-    ('/groupfeed', GroupfeedHandler)
+    ('/groupfeed', GroupfeedHandler),
+    ('/upload', UploadHandler)
 ], debug=True)
