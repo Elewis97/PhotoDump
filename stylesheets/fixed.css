@@ -13,8 +13,23 @@
 #logo {
   color: white;
   text-decoration: none;
-  font-size: 2.3em;
+  font-size: 2em;
   text-shadow:  1px 1px 0px #ccc, 3px 3px 8px black;
+  padding-bottom: 2%;
+  padding-left: .5%;
+  padding-right: 1%;
+  padding-top: 1.5%;
+}
+
+#pic1 {
+    margin-top: 1.5%;
+    height: 6%;
+}
+
+#search {
+  margin-left: 55%;
+  margin-top: -3.5%;
+  float: right;
 }
 
 #footer {

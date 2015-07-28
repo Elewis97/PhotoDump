@@ -4,30 +4,12 @@ body {
   margin: 0;
 }
 
-h1 {
-    text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
-    2px 1px 1px #ccc, 1px 2px 1px #eee,
-    3px 2px 1px #ccc;
-    font-size: 2.3em;
-}
-
 h2 {
     text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
     2px 1px 1px #ccc, 1px 2px 1px #eee,
     3px 2px 1px #ccc, 2px 3px 1px #eee,
     4px 3px 1px #ccc;
     font-size: 4em;
-}
-
-#pic1 {
-    margin-top: 2%;
-    padding-left: 1%;
-}
-
-#search {
-  margin-left: 55%;
-  margin-top: -3.5%;
-  float: right;
 }
 
 #welcomestuff {
