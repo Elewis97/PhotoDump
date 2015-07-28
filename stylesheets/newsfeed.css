@@ -55,11 +55,15 @@ h1 {
     3px 2px 1px #ccc;
     font-size: 2.3em;
 }
+#pic1 {
+    margin-top: 2%;
+    padding-left: 1%;
+}
 
-  #search {
-    padding: 2.5%;
-    margin-left: 50%;
-  }
+#search {
+  margin-left: 50%;
+  margin-top: 3%;
+}
 
 .newsfeed {
 }
