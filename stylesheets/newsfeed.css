@@ -19,18 +19,22 @@
 
 #welcomeSidebar {
   display: flex;
-  background-color: #A9E8E0;
+  background-color: #AAE3DC;
   height: 100%;
   width: auto;
-
-
 }
+
+#columnforsidebar {
+  flex-direction: column;
+  text-align: center;
+}
+
 #welcometext {
-  font-size: 20px;
   text-align: center;
   text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
   2px 1px 1px #ccc;
 }
+
 #section {
   display: flex;
   background-color: #E0F2F1;
@@ -46,47 +50,7 @@
   2px 1px 1px #ccc;
 }
 
-/*.HolyGrail {
-  display: flex;
-
-  flex-direction: column;
-  align-content: space-around;
-}*/
-
-/*.newsfeed-body{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-content: space-between;
-  flex: 1;
-  padding: 0;
-  margin: 0;
-}
-
-
-.content {
-  text-align: center;
-  flex: 1;
-  background-color: #B2DFDB;
-}
-
-.nav, .aside {
-  text-align: center;
-  flex: 0 0 12em;
-}
-
-.nav {
-  order: -1;
-  background-color: #E0F2F1;
-  /*background-image: url("http://www.unsigneddesign.com/Seamless_background_textures/1200px/seamlesstexture24_1200.jpg");*/
-
-
-
-
-
-
-#feed{
+.feed{
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -94,16 +58,11 @@
   align-content: space-around;
   align-items: center;
   flex: 1;
-  margin: 1%;
+  margin-left: 4%;
+  margin-right: 4%;
 }
 
-.feed div {
-  margin: 10px;
-  padding: 10px;
-  background-color: #E0F2F1;
-  border-radius: 25px;
 
-}
 
 #header {
     background-color:#00BFA5;
@@ -133,6 +92,18 @@ h1 {
   margin-top: 3%;
 }
 
+.footer {
+    position: fixed;
+    bottom: 0;
+    font-family: 'Raleway';
+    color:white;
+    padding:.7%;
+    margin: -.4%;
+    text-align:center;
+    width: 100%;
+    background-color:#00BFA5;
+}
+
 /*.content {
   text-align: center;
   flex: 1;
@@ -153,15 +124,3 @@ h1 {
 .aside{
     background-color: #00BFA5;
 }*/
-
-.footer {
-    position: fixed;
-    bottom: 0;
-    font-family: 'Raleway';
-    color:white;
-    padding:.7%;
-    margin: -.4%;
-    text-align:center;
-    width: 100%;
-    background-color:#00BFA5;
-}
