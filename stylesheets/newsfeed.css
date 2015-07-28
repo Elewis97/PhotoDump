@@ -16,6 +16,7 @@
   padding: 0;
   margin: 0;
 }
+<<<<<<< HEAD
 
 .content {
   text-align: center;
@@ -73,22 +74,26 @@
 }
 
 
+=======
+>>>>>>> 0d562418b8b521c9128e76d01ee94611eb56402a
 #header {
     background-color:#00BFA5;
     color:white;
     text-align:left;
-    margin: 0;
+    margin: -.7%;
     padding: .5%;
     font-family: 'Raleway', sans-serif;
     display: flex;
     flex-wrap: wrap;
 }
+
 h1 {
     text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
     2px 1px 1px #ccc, 1px 2px 1px #eee,
     3px 2px 1px #ccc;
     font-size: 2.3em;
 }
+
 #pic1 {
     margin-top: 2%;
     padding-left: 1%;
@@ -98,6 +103,29 @@ h1 {
   margin-left: 50%;
   margin-top: 3%;
 }
+
+.content {
+  text-align: center;
+  flex: 1;
+  background-color: #B2DFDB;
+}
+
+.nav, .aside {
+  text-align: center;
+  flex: 0 0 12em;
+}
+
+.nav {
+  order: -1;
+  background-color: #E0F2F1;
+
+}
+
+.aside{
+    background-color: #00BFA5;
+}
+
+
 
 .newsfeed {
 }
