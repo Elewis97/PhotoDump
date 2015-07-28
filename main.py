@@ -117,15 +117,19 @@ class GroupSearchHandler(webapp2.RequestHandler):
     def get(self):
         query = PhotoGroup.query()
         group_data = query.fetch()
+<<<<<<< HEAD
+        
+=======
         search_term = self.request.get("searchBox")
         group_name = []
         for group in group_data:
             if group.group_name == search_term:
                 self.response.write(group)
                 self.response.write("<br/>")
+>>>>>>> 73018eec5badfc54973b14760c78035414fd86b5
         template_vars = {'group': group_data}
         template = jinja2_environment.get_template('templates/search.html')
-        # self.response.write("hello world")
+        self.response.write(template.render())
 
 class ViewGroupHandler(webapp2.RequestHandler):
     def get(self):
