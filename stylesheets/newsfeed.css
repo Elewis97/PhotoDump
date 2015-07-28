@@ -1,11 +1,40 @@
+/* holy grail is the body */
 .HolyGrail {
+  background-color: #E0F2F1;
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+}
+.newsfeed {
   display: flex;
-  min-height: 100vh;
+  align-self: stretch;
   flex-direction: column;
   align-content: space-around;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: scroll;
 }
 
-.newsfeed-body{
+#welcomeSidebar {
+  display: flex;
+  background-color: #E0F2F1;
+  height: 100%;
+  width: auto;
+}
+
+#section {
+  display: flex;
+  background-color: #D3F2F1;
+  align-self: stretch;
+}
+/*.HolyGrail {
+  display: flex;
+
+  flex-direction: column;
+  align-content: space-around;
+}*/
+
+/*.newsfeed-body{
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -13,12 +42,12 @@
   align-content: space-between;
   flex: 1;
 
-}
+}*/
 #header {
     background-color:#00BFA5;
     color:white;
     text-align:left;
-    margin: -.7%;
+    margin: 0;
     padding: .5%;
     font-family: 'Raleway', sans-serif;
     display: flex;
@@ -42,7 +71,7 @@ h1 {
   margin-top: 3%;
 }
 
-.content {
+/*.content {
   text-align: center;
   flex: 1;
   background-color: #B2DFDB;
@@ -61,14 +90,8 @@ h1 {
 
 .aside{
     background-color: #00BFA5;
-}
+}*/
 
-.newsfeed {
-}
-
-#trail {
-  float:right;
-}
 .footer {
     position: fixed;
     bottom: 0;
