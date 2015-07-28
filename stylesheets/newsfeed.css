@@ -19,7 +19,7 @@
 
 .welcomeSidebar {
   display: flex;
-  background-color: #AAE3DC;
+  background-color: #BEEDE7;
   height: 100%;
   width: auto;
 }
@@ -31,9 +31,12 @@
 }
 
 #welcometext {
+  margin-left: 5%;
+  margin-right: 5%;
   text-align: center;
   text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
   2px 1px 1px #ccc;
+  word-wrap: break-word;
 }
 
 #section {
