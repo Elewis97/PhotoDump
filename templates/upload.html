@@ -7,16 +7,6 @@
 
   <body>
 
-    <div id="header">
-      <h1>PhotoDump</h1>
-        <div id = "search">
-        <form>
-          Search PhotoDump
-          <input id = "searchbox" type="text" name="searchBox">
-        </form>
-      </div>
-    </div>
-
     Select photos to upload!
     <form method="POST" action="{{ upload_url }}" enctype="multipart/form-data">
       <input type="file" name="file" value="file" multiple>
