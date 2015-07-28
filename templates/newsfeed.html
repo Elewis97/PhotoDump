@@ -13,24 +13,34 @@
 <!-- the sections on the newsfeed -->
   <div class = "newsfeed">
 
-    <div id="welcomeSidebar">
+    <div class="welcomeSidebar">
       <div id = "columnforsidebar">
-        <h2 id = "welcometext"> Welcome User! </h2>
+        <h3 id = "welcometext"> Welcome {{greeting}}! </h3>
         <br>
         <!-- need to link CreateGroupHandler to this button-->
-        <button> Make a new group! </button>
+        <form action="/create_group">
+          <input type="submit" value="Make a new group!">
+        </form>
+        {% for group in photo_group_data %}
+          <div class="groups">
+            <div class="group_name"> {{group.group_name}} </div>
+            <a href="/groupfeed/view?group_id={{group.key.id()}}"> View group </a>
+          </div>
+        {% endfor %}
       </div>
+
       <div id="section">
         <h2 id ="newsfeedtitle">Check out your newsfeed!</h2>
           <div class = "feed">
             <p>
-            <img class = "test" src = "../images/camera.png" height = 50px/>
+            <img class = "test" src = "../images/camera.png" />
             Standing on the River Thames, London has been a major settlement for two millennia,
             its history going back to its founding by the Romans, who named it Londinium.
             </p>
         </div>
       </div>
     </div>
+
   </div>
 
 </body>
