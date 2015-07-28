@@ -106,11 +106,13 @@ class CreateGroupHandler(webapp2.RequestHandler):
 
 class ViewGroupHandler(webapp2.RequestHandler):
     def get(self):
-        header = jinja2_environment.get_template('templates/header.html')
-        self.response.write(header.render())
-
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/group.html')
-        self.response.write(template.render())
+        group_id = int(self.request.get("group_id"))
+        group = PhotoGroup.get_by_id(group_id)
+        template_vars = {"group" : group}
+        self.response.write(template.render(template_vars))
 
 # Tells the user when they successfully create a group.
 class SuccessHandler(webapp2.RequestHandler):

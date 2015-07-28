@@ -47,6 +47,14 @@ h2 {
     transform: translate(-50%, -50%);
 }
 
+/*This is to add a border for the groups in groupfeed*/
+.groups {
+  border: 2px solid black;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+}
+
 .footer {
     position: fixed;
     bottom: 0;

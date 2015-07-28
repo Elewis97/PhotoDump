@@ -125,11 +125,20 @@ h1 {
     background-color: #00BFA5;
 }
 
-
-
 .newsfeed {
 }
 
 #trail {
   float:right;
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    font-family: 'Raleway';
+    color:white;
+    padding:.7%;
+    margin: -.4%;
+    text-align:center;
+    width: 100%;
+    background-color:#00BFA5;
 }
