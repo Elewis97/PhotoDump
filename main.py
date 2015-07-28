@@ -47,6 +47,7 @@ class PhotoGroup(ndb.Model):
     dislikes = ndb.IntegerProperty(default=0)
     photo_links = ndb.StringProperty(repeated=True)
     photos = ndb.StructuredProperty(Photo, repeated = True)
+    description = ndb.StringProperty(required=False)
 
 
 class WelcomeHandler(webapp2.RequestHandler):
