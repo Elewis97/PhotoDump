@@ -25,7 +25,8 @@
 }
 
 #columnforsidebar {
-  width: 20%;
+  display: flex;
+  flex-wrap: nowrap;
   flex-direction: column;
   text-align: center;
 }
