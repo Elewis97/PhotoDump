@@ -158,10 +158,10 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
                 blob_key = upload.key()
                 serving_url = images.get_serving_url(blob_key)
                 photo = Photo(blob_key=blob_key, url=serving_url)
-                group.photo += [photo]
-                self.response.write("<img src='"+ serving_url+"' >")
-                self.response.write("<br/>")
-            self.response.write("success")
+                group.photos += [photo]
+                group.put()
+                logging.info("THIS WORKED RIGHT HERE")
+            self.redirect("/groupfeed/view?group_id="+str(group_id))
         except:
             self.response.write("failure")
 
