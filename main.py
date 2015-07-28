@@ -82,9 +82,13 @@ class UploadHandler(webapp2.RequestHandler):
 
 class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
+        upload_stuff = self.get_uploads()
+        logging.info("UPLOAD!!! " + str(upload_stuff))
         try:
             #a = self.request.get("my_file")
-            upload = self.get_uploads()[0]
+
+            upload = upload_stuff[0]
+
             photo = Photo(uploaded_by=users.get_current_user().user_id(), blob_key=upload.key())
             photo.put()
             self.redirect('/view_photo/%s' % upload.key())
