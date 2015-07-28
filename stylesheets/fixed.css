@@ -37,8 +37,7 @@
   border: 2vh;
 }
 
-<<<<<<< HEAD
-=======
+
 #submit-button {
   height: inherit;
   width: 10vw;
@@ -59,7 +58,7 @@
     height: 6%;
 }
 
->>>>>>> c33c77753db568fbded39f3a0130cd293d651a0a
+
 #footer {
     position: fixed;
     bottom: 0;
