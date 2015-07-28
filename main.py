@@ -105,16 +105,27 @@ class CreateGroupHandler(webapp2.RequestHandler):
         logging.info(self.request)
         self.redirect("/success")
 
+class GroupSearchHandler(webapp2.RequestHandler):
+    def get(self):
+        query = PhotoGroup.query()
+        group_data = query.fetch()
+        search_term = self.request.get("searchBox")
+        group_name = []
+        for group in group_data:
+            if group.group_name == search_term:
+                self.response.write(group)
+                self.response.write("<br/>")
+        # template_vars = {'group': group_data}
+        # template = jinja2_environment.get_template('templates/')
+        # self.response.write("hello world")
+
 class ViewGroupHandler(webapp2.RequestHandler):
     def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
+        header = jinja2_environment.get_template('templates/header.html')
+        self.response.write(header.render())
 
-        group_id = int(self.request.get("group_id"))
-        group = PhotoGroup.get_by_id(group_id)
-        template_vars = { "group" : group}
         template = jinja2_environment.get_template('templates/group.html')
-        self.response.write(template.render(template_vars))
+        self.response.write(template.render())
 
 # Tells the user when they successfully create a group.
 class SuccessHandler(webapp2.RequestHandler):
@@ -145,7 +156,7 @@ class TestHandler(webapp2.RequestHandler):
 #The photo will be uploaded to imgur using the imgur upload API
 #The imgur API will then return a link and the link will be stored in a Photo class
 class UploadHandler(webapp2.RequestHandler):
-    def post(self):
+    def get(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
         template = jinja2_environment.get_template("templates/upload.html")
@@ -154,6 +165,9 @@ class UploadHandler(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 
 class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+    def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
     def post(self):
         try:
             upload_list = self.get_uploads()
@@ -177,9 +191,7 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
         else:
             self.send_blob(photo_key)
 
-class SearchHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write("hello world")
+
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
