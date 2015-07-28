@@ -20,6 +20,14 @@
   opacity: 0.75;
 }
 
+#logo-pic {
+  top: 1vh;
+  height: 8vh;
+  position: fixed;
+  left: 40vh;
+  text-shadow:  1px 1px 0px #ccc, 3px 3px 8px black;
+}
+
 #search {
   position: fixed;
   right: 0;
@@ -34,22 +42,13 @@
   font-size: 2vw;
   width: 20vw;
   box-sizing: border-box;
-  border: 2vh;
 }
 
 #submit-button {
-  height: inherit;
+  height: 10vh;
   width: 10vw;
   border: 0;
   padding: 0;
-}
-
-#logo-pic {
-  top: 1vh;
-  height: 8vh;
-  position: fixed;
-  left: 40vh;
-  text-shadow:  1px 1px 0px #ccc, 3px 3px 8px black;
 }
 
 #pic1 {
