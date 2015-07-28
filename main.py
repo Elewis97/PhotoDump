@@ -63,7 +63,6 @@ class WelcomeHandler(webapp2.RequestHandler):
 class NewsfeedHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('templates/newsfeed.html')
-        self.response.write('Hello world!')
         self.response.write(template.render())
 
 class GroupfeedHandler(webapp2.RequestHandler):
