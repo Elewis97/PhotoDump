@@ -22,6 +22,9 @@ import json
 from google.appengine.ext import ndb
 from google.appengine.ext import vendor
 from google.appengine.api import users
+from google.appengine.ext import blobstore
+from google.appengine.ext.webapp import blobstore_handlers
+from google.appengine.ext.webapp.util import run_wsgi_app
 
 class PhotoGroup(ndb.Model):
     group_name = ndb.StringProperty(required=True)
@@ -38,7 +41,8 @@ class Photo(ndb.Model):
     uploaded_by = ndb.StringProperty()
     likes = ndb.IntegerProperty(default=0)
     dislikes = ndb.IntegerProperty(default=0)
-    url = ndb.StringProperty(required=True)
+    blob_key = ndb.BlobKeyProperty()
+    #url = ndb.StringProperty(required=True)
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
@@ -73,18 +77,28 @@ class GroupfeedHandler(webapp2.RequestHandler):
 class UploadHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template("templates/upload.html")
-        self.response.write(template.render())
-        vendor.add('lib')
-    def post(self):
-        #a = self.request.get("my_file")
-        a = "test.jpg"
-        self.response.write(a)
-        client_id = '80a6eef5aa2bb73'
-        client_secret = 'fd6b0b666c450a219de0b43d49ab6e014e4636cd'
-        im = pyimgur.Imgur(client_id=client_id, client_secret=client_secret)
-        test = im.upload_image(a, title="test")
-        self.response.write("Success")
+        upload_url = blobstore.create_upload_url('/uploaded')
+        template_vars = { "upload_url" : upload_url}
+        self.response.write(template.render(template_vars))
 
+class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+    def post(self):
+        try:
+            #a = self.request.get("my_file")
+            upload = self.get_uploads()[0]
+            photo = Photo(uploaded_by=users.get_current_user().user_id(), blob_key=upload.key())
+            photo.put()
+            self.redirect('/view_photo/%s' % upload.key())
+            self.response.write("success")
+        except:
+            self.response.write("failure")
+
+class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
+    def get(self, photo_key):
+        if not blobstore.get(photo_key):
+            self.error(404)
+        else:
+            self.send_blob(photo_key)
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -93,5 +107,7 @@ app = webapp2.WSGIApplication([
     ('/', WelcomeHandler),
     ('/newsfeed', NewsfeedHandler),
     ('/groupfeed', GroupfeedHandler),
-    ('/upload', UploadHandler)
+    ('/upload', UploadHandler),
+    ('/uploaded', FinishedUploadHandler),
+    ('/view_photo/([^/]+)', ViewPhotoHandler)
 ], debug=True)

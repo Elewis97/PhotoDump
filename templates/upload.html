@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel = "stylesheet" type = "text/css" href="../stylesheets/welcome.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
   </head>
 
   <body>
+
+    <div id="header">
+      <h1>PhotoDump</h1>
+        <div id = "search">
+        <form>
+          Search PhotoDump
+          <input id = "searchbox" type="text" name="searchBox">
+        </form>
+      </div>
+    </div>
+
     Select photos to upload!
-    <form method="POST" action="/upload">
-      <input type="file" name="my_file" multiple>
-      <input type="submit" value="upload">
+    <form method="POST" action="{{ upload_url }}" enctype="multipart/form-data">
+      <input type="file" name="file" value="file">
+      <input type="submit" name="submit" value="Submit">
     </form>
+
   </body>
 </html>
