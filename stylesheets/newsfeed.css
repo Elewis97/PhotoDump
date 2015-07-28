@@ -82,6 +82,10 @@ p {
   align-content: flex-end;
   align-items: center;
 }
+button {
+  margin-left: auto;
+  margin-right: auto;
+}
 .test {
   display: flex;
   flex-direction: row;
