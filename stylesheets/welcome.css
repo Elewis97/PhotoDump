@@ -1,6 +1,9 @@
 body {
+  background-color: #E0F2F1;
+  background: radial-gradient(circle, white, #D3F2F1);
   margin: 0;
 }
+
 #header {
     background-color:#00BFA5;
     color:white;
@@ -41,12 +44,6 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-
-body {
-  background-color: #E0F2F1;
-  background: radial-gradient(circle, white, #D3F2F1);
 }
 
 .footer {
