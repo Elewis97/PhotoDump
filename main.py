@@ -78,8 +78,13 @@ class NewsfeedHandler(webapp2.RequestHandler):
                         users.create_login_url('/newsfeed'))
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
+
+
+        query = PhotoGroup.query()
+        photo_group_data = query.fetch() #PhotoGroup model list
+        template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
         template = jinja2_environment.get_template('templates/newsfeed.html')
-        self.response.write(template.render(greeting=greeting))
+        self.response.write(template.render(template_vars))
 
 class GroupfeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -131,9 +136,11 @@ class ViewGroupHandler(webapp2.RequestHandler):
     def get(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
-
+        group_id = int(self.request.get("group_id"))
+        group = PhotoGroup.get_by_id(group_id)
+        template_vars = { "group" : group}
         template = jinja2_environment.get_template('templates/group.html')
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 # Tells the user when they successfully create a group.
 class SuccessHandler(webapp2.RequestHandler):
@@ -164,12 +171,14 @@ class TestHandler(webapp2.RequestHandler):
 #The photo will be uploaded to imgur using the imgur upload API
 #The imgur API will then return a link and the link will be stored in a Photo class
 class UploadHandler(webapp2.RequestHandler):
-    def get(self):
+    def post(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
+        group_id = int(self.request.get("group_id"))
+        group = PhotoGroup.get_by_id(group_id)
         template = jinja2_environment.get_template("templates/upload.html")
         upload_url = blobstore.create_upload_url('/uploaded')
-        template_vars = { "upload_url" : upload_url}
+        template_vars = { "upload_url" : upload_url, "group" : group}
         self.response.write(template.render(template_vars))
 
 class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
@@ -178,28 +187,20 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         self.response.write(fixed.render())
     def post(self):
         try:
+            group_id = int(self.request.get("group_id"))
+            group = PhotoGroup.get_by_id(group_id)
+            logging.info("GROUP: " + group.group_name)
             upload_list = self.get_uploads()
             for upload in upload_list:
                 blob_key = upload.key()
                 serving_url = images.get_serving_url(blob_key)
                 photo = Photo(blob_key=blob_key, url=serving_url)
-                photo.put()
-                self.response.write("<img src='"+ serving_url+"' >")
-                self.response.write("<br/>")
-            self.response.write("success")
+                group.photos += [photo]
+                group.put()
+                logging.info("THIS WORKED RIGHT HERE")
+            self.redirect("/newsfeed/view?group_id="+str(group_id))
         except:
             self.response.write("failure")
-
-class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
-    def get(self, photo_key):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        if not blobstore.get(photo_key):
-            self.error(404)
-        else:
-            self.send_blob(photo_key)
-
-
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -208,10 +209,9 @@ app = webapp2.WSGIApplication([
     ('/', WelcomeHandler),
     ('/newsfeed', NewsfeedHandler),
     ('/groupfeed', GroupfeedHandler),
-    ('/groupfeed/view', ViewGroupHandler),
+    ('/newsfeed/view', ViewGroupHandler),
     ('/upload', UploadHandler),
     ('/uploaded', FinishedUploadHandler),
-    ('/view_photo/([^/]+)', ViewPhotoHandler),
     ('/test', TestHandler),
     ('/create_group', CreateGroupHandler),
     ('/success', SuccessHandler),
