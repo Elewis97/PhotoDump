@@ -104,7 +104,7 @@ class CreateGroupHandler(webapp2.RequestHandler):
 
 class ViewGroupHandler(webapp2.RequestHandler):
     def get(self):
-        header = jinja2_environment.get_template('templates/header.html')
+        fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(header.render())
 
         template = jinja2_environment.get_template('templates/group.html')
