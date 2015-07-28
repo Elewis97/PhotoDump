@@ -27,10 +27,15 @@ h1 {
     justify-content: center;
     align-content: center;
     align-items: center;
+    position: relative;
+    top:50%;
+    transform: translateY(70%);
 }
 
 body {
   background-color: #E0F2F1;
+  background: linear-gradient(#E0F2F1, white);
+
 }
 
 .footer {
