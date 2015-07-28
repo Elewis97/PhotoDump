@@ -83,8 +83,9 @@ p {
   align-items: center;
 }
 button {
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 20%;
+  margin-right: 20%;
+  word-wrap: break-word;
 }
 .test {
   display: flex;
@@ -94,6 +95,7 @@ button {
   align-content: flex-end;
   align-items: center;
   width: 10%;
+
 
 }
 
