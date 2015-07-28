@@ -26,6 +26,8 @@ from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import images
+from google.appengine.api import search
+
 
 class PhotoGroup(ndb.Model):
     group_name = ndb.StringProperty(required=True)
@@ -131,25 +133,32 @@ class TestHandler(webapp2.RequestHandler):
 #The photo will be uploaded to imgur using the imgur upload API
 #The imgur API will then return a link and the link will be stored in a Photo class
 class UploadHandler(webapp2.RequestHandler):
-    def get(self):
+    def post(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
+
         template = jinja2_environment.get_template("templates/upload.html")
+        group_id = self.request.get("group_id")
+        logging.info("GROUP ID: " + str(group_id))
+
+        #upload
         upload_url = blobstore.create_upload_url('/uploaded')
-        template_vars = { "upload_url" : upload_url}
+        template_vars = { "upload_url" : upload_url, "group_id" : group_id}
+
         self.response.write(template.render(template_vars))
 
 class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
     def post(self):
         try:
-            #a = self.request.get("my_file")
-            upload = self.get_uploads()[0]
-            photo = Photo(blob_key=upload.key())
-            photo.put()
-            self.redirect('/view_photo/%s' % upload.key())
+            upload_list = self.get_uploads()
+            for upload in upload_list:
+                blob_key = upload.key()
+                serving_url = images.get_serving_url(blob_key)
+                self.response.write("<img src='"+ serving_url+"' >")
+                self.response.write("<br/>")
+
+            #photo = Photo(blob_key=upload.key())
+            #photo.put()
             self.response.write("success")
         except:
             self.response.write("failure")
@@ -162,6 +171,8 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
             self.error(404)
         else:
             self.send_blob(photo_key)
+
+class SearchHandler()
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
