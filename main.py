@@ -38,7 +38,7 @@ class Photo(ndb.Model):
     name = ndb.StringProperty(required=False)
     caption = ndb.StringProperty(required=False)
     date_created = ndb.DateTimeProperty(auto_now_add=True)
-    uploaded_by = ndb.StringProperty()
+    uploaded_by = ndb.UserProperty(auto_current_user_add=True)
     likes = ndb.IntegerProperty(default=0)
     dislikes = ndb.IntegerProperty(default=0)
     blob_key = ndb.BlobKeyProperty()
@@ -86,10 +86,8 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         logging.info("UPLOAD!!! " + str(upload_stuff))
         try:
             #a = self.request.get("my_file")
-
             upload = upload_stuff[0]
-
-            photo = Photo(uploaded_by=users.get_current_user().user_id(), blob_key=upload.key())
+            photo = Photo(blob_key=upload.key())
             photo.put()
             self.redirect('/view_photo/%s' % upload.key())
             self.response.write("success")
