@@ -123,17 +123,49 @@ class ViewGroupHandler(webapp2.RequestHandler):
     def get(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
+<<<<<<< HEAD
 
+=======
+        group_id = int(self.request.get("group_id"))
+        group = PhotoGroup.get_by_id(group_id)
+        template_vars = { "group" : group}
+>>>>>>> 351cc847efc9e71e451f10651724ad12b8a8eb99
         template = jinja2_environment.get_template('templates/group.html')
         self.response.write(template.render())
 
-# Tells the user when they successfully create a group.
-class SuccessHandler(webapp2.RequestHandler):
+#This is the upload handler it deals with uploading photos.
+#The photo will be uploaded to imgur using the imgur upload API
+#The imgur API will then return a link and the link will be stored in a Photo class
+class UploadHandler(webapp2.RequestHandler):
     def get(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
-        template = jinja2_environment.get_template('templates/success.html')
-        self.response.write(template.render())
+        group_id = int(self.request.get("group_id"))
+        group = PhotoGroup.get_by_id(group_id)
+        template = jinja2_environment.get_template("templates/upload.html")
+        upload_url = blobstore.create_upload_url('/uploaded')
+        template_vars = { "upload_url" : upload_url, "group" : group}
+        self.response.write(template.render(template_vars))
+
+class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+    def post(self):
+        try:
+            group_id = int(self.request.get("group_id"))
+            group = PhotoGroup.get_by_id(group_id)
+            logging.info("GROUP: " + group.group_name)
+            upload_list = self.get_uploads()
+            for upload in upload_list:
+                blob_key = upload.key()
+                serving_url = images.get_serving_url(blob_key)
+                photo = Photo(blob_key=blob_key, url=serving_url)
+                group.photo += [photo]
+                self.response.write("<img src='"+ serving_url+"' >")
+                self.response.write("<br/>")
+            self.response.write("success")
+        except:
+            self.response.write("failure")
+
+
 
 #THIS HANDLER IS FOR KIET TO TEST STUFF
 class TestHandler(webapp2.RequestHandler):
@@ -152,36 +184,6 @@ class TestHandler(webapp2.RequestHandler):
         #self.response.write(group.photos)
         #self.response.write("DISLIKES: " + str(group.dislikes))
 
-#This is the upload handler it deals with uploading photos.
-#The photo will be uploaded to imgur using the imgur upload API
-#The imgur API will then return a link and the link will be stored in a Photo class
-class UploadHandler(webapp2.RequestHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        template = jinja2_environment.get_template("templates/upload.html")
-        upload_url = blobstore.create_upload_url('/uploaded')
-        template_vars = { "upload_url" : upload_url}
-        self.response.write(template.render(template_vars))
-
-class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-    def post(self):
-        try:
-            upload_list = self.get_uploads()
-            for upload in upload_list:
-                blob_key = upload.key()
-                serving_url = images.get_serving_url(blob_key)
-                photo = Photo(blob_key=blob_key, url=serving_url)
-                photo.put()
-                self.response.write("<img src='"+ serving_url+"' >")
-                self.response.write("<br/>")
-            self.response.write("success")
-        except:
-            self.response.write("failure")
-
 class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, photo_key):
         fixed = jinja2_environment.get_template('templates/fixed.html')
@@ -191,7 +193,13 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
         else:
             self.send_blob(photo_key)
 
-
+# Tells the user when they successfully create a group.
+class SuccessHandler(webapp2.RequestHandler):
+    def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
+        template = jinja2_environment.get_template('templates/success.html')
+        self.response.write(template.render())
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
