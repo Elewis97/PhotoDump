@@ -62,7 +62,13 @@
   margin-right: 4%;
 }
 
-
+p {
+  text-align: right;
+  background-color: white;
+  border-radius: 25px;
+  padding: 2%;
+}
+.test {}
 
 #header {
     background-color:#00BFA5;
