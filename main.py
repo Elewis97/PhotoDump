@@ -114,8 +114,8 @@ class GroupSearchHandler(webapp2.RequestHandler):
             if group.group_name == search_term:
                 self.response.write(group)
                 self.response.write("<br/>")
-        # template_vars = {'group': group_data}
-        # template = jinja2_environment.get_template('templates/')
+        template_vars = {'group': group_data}
+        template = jinja2_environment.get_template('templates/search.html')
         # self.response.write("hello world")
 
 class ViewGroupHandler(webapp2.RequestHandler):
@@ -192,5 +192,6 @@ app = webapp2.WSGIApplication([
     ('/view_photo/([^/]+)', ViewPhotoHandler),
     ('/test', TestHandler),
     ('/create_group', CreateGroupHandler),
-    ('/success', SuccessHandler)
+    ('/success', SuccessHandler),
+    ('/search', GroupSearchHandler)
 ], debug=True)
