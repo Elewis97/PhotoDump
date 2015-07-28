@@ -12,6 +12,7 @@
   left: 0;
   color: white;
   text-decoration: none;
+  font-family: 'Raleway';
   font-size: 7vh;
   text-shadow:  0.25vh 0.25vh 0vh #ccc, 0.75vh 0.75vh 1.5vh black;
 }
