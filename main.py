@@ -107,14 +107,13 @@ class CreateGroupHandler(webapp2.RequestHandler):
 
 class GroupSearchHandler(webapp2.RequestHandler):
     def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
         query = PhotoGroup.query()
-        search_term = self.request.get("searchBox")
         group_data = query.fetch()
+        search_term = self.request.get("searchBox")
+        group_name = []
         for group in group_data:
             if group.group_name == search_term:
-                self.response.write(group.group_name)
+                self.response.write(group)
                 self.response.write("<br/>")
         template_vars = {'group': group_data}
         template = jinja2_environment.get_template('templates/search.html')
@@ -125,11 +124,8 @@ class ViewGroupHandler(webapp2.RequestHandler):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
 
-        group_id = int(self.request.get("group_id"))
-        group = PhotoGroup.get_by_id(group_id)
-        template_vars = { "group" : group}
         template = jinja2_environment.get_template('templates/group.html')
-        self.response.write(template.render(template_vars))
+        self.response.write(template.render())
 
 # Tells the user when they successfully create a group.
 class SuccessHandler(webapp2.RequestHandler):
@@ -160,7 +156,7 @@ class TestHandler(webapp2.RequestHandler):
 #The photo will be uploaded to imgur using the imgur upload API
 #The imgur API will then return a link and the link will be stored in a Photo class
 class UploadHandler(webapp2.RequestHandler):
-    def post(self):
+    def get(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
         template = jinja2_environment.get_template("templates/upload.html")

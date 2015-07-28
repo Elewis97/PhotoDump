@@ -35,7 +35,7 @@ h2 {
 }
 
 #search {
-  margin-left: 67%;
+  margin-left: 55%;
   margin-top: -3.5%;
   float: right;
 }
@@ -47,6 +47,7 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 
 .footer {
     position: fixed;
