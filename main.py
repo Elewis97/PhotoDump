@@ -145,11 +145,12 @@ class UploadHandler(webapp2.RequestHandler):
 class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
         try:
-            #a = self.request.get("my_file")
-            upload = self.get_uploads()[0]
-            photo = Photo(blob_key=upload.key())
-            photo.put()
-            self.redirect('/view_photo/%s' % upload.key())
+            upload_list = self.get_uploads()
+            for upload in upload_list:
+                blob_key = upload.key()
+                serving_url = images.get_serving_url(blob_key)
+                self.response.write("<img src='"+ serving_url+"' >")
+                self.response.write("<br/>")
             self.response.write("success")
         except:
             self.response.write("failure")
