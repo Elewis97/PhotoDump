@@ -28,6 +28,15 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import images
 from google.appengine.api import search
 
+class Photo(ndb.Model):
+    name = ndb.StringProperty(required=False)
+    caption = ndb.StringProperty(required=False)
+    date_created = ndb.DateTimeProperty(auto_now_add=True)
+    uploaded_by = ndb.UserProperty(auto_current_user_add=True)
+    likes = ndb.IntegerProperty(default=0)
+    dislikes = ndb.IntegerProperty(default=0)
+    blob_key = ndb.BlobKeyProperty()
+    url = ndb.StringProperty(required=True)
 
 class PhotoGroup(ndb.Model):
     group_name = ndb.StringProperty(required=True)
@@ -37,16 +46,8 @@ class PhotoGroup(ndb.Model):
     likes = ndb.IntegerProperty(default=0)
     dislikes = ndb.IntegerProperty(default=0)
     photo_links = ndb.StringProperty(repeated=True)
+    photos = ndb.StructuredProperty(Photo, repeated = True)
 
-class Photo(ndb.Model):
-    name = ndb.StringProperty(required=False)
-    caption = ndb.StringProperty(required=False)
-    date_created = ndb.DateTimeProperty(auto_now_add=True)
-    uploaded_by = ndb.UserProperty(auto_current_user_add=True)
-    likes = ndb.IntegerProperty(default=0)
-    dislikes = ndb.IntegerProperty(default=0)
-    blob_key = ndb.BlobKeyProperty()
-    #url = ndb.StringProperty(required=True)
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
@@ -128,7 +129,17 @@ class TestHandler(webapp2.RequestHandler):
     def get(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
-        self.response.write(images.get_serving_url("2kBDZ5Z2bSes-oP1J6uK0w=="))
+        group = PhotoGroup.get_by_id(4962095976153088)
+        group.dislikes = 123
+        photo1 = Photo.get_by_id(5525045929574400)
+        photo2 = Photo.get_by_id(6650945836417024)
+        #self.response.write(group.photos)
+        group.photos = [photo1, photo2]
+        for photos in group.photos:
+            self.response.write(photos.url)
+            self.response.write()
+        #self.response.write(group.photos)
+        #self.response.write("DISLIKES: " + str(group.dislikes))
 
 #This is the upload handler it deals with uploading photos.
 #The photo will be uploaded to imgur using the imgur upload API
@@ -149,6 +160,8 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
             for upload in upload_list:
                 blob_key = upload.key()
                 serving_url = images.get_serving_url(blob_key)
+                photo = Photo(blob_key=blob_key, url=serving_url)
+                photo.put()
                 self.response.write("<img src='"+ serving_url+"' >")
                 self.response.write("<br/>")
             self.response.write("success")
