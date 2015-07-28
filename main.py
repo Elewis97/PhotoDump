@@ -73,8 +73,8 @@ class GroupfeedHandler(webapp2.RequestHandler):
         template = jinja2_environment.get_template('templates/groupfeed.html')
         query = PhotoGroup.query()
         photo_group_data = query.fetch()
-        template_vars = {"photo_group_data" : photo_group_data}
-        self.response.write(template.render())
+        template_vars = {"photo_group_data" : photo_group_data} #PhotoGroup model list
+        self.response.write(template.render(template_vars))
 
 #class ViewGroupHandler(webapp2.RequestHandler):
 #    def get(self):
@@ -95,6 +95,14 @@ class CreateGroupHandler(webapp2.RequestHandler):
         new_group.put()
         logging.info(self.request)
         self.redirect("/success")
+
+class ViewGroupHandler(webapp2.RequestHandler):
+    def get(self):
+        header = jinja2_environment.get_template('templates/header.html')
+        self.response.write(header.render())
+
+        template = jinja2_environment.get_template('templates/group.html')
+        self.response.write(template.render())
 
 # Tells the user when they successfully create a group.
 class SuccessHandler(webapp2.RequestHandler):
@@ -143,6 +151,7 @@ app = webapp2.WSGIApplication([
     ('/', WelcomeHandler),
     ('/newsfeed', NewsfeedHandler),
     ('/groupfeed', GroupfeedHandler),
+    ('/groupfeed/view', ViewGroupHandler),
     ('/upload', UploadHandler),
     ('/uploaded', FinishedUploadHandler),
     ('/view_photo/([^/]+)', ViewPhotoHandler),
