@@ -50,7 +50,7 @@ class WelcomeHandler(webapp2.RequestHandler):
         logging.info("WELCOME HANDLER ENTERED")
         user = users.get_current_user()
         if user:
-            greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
+            greeting = ('Hey, %s! (<a href="%s">sign out</a>)' %
                 (user.nickname(), users.create_logout_url('/')))
         else:
             greeting = ('<a href="%s">Sign in or register</a>.' %
@@ -62,7 +62,6 @@ class WelcomeHandler(webapp2.RequestHandler):
 class NewsfeedHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('templates/newsfeed.html')
-        self.response.write('Hello world!')
         self.response.write(template.render())
 
 class GroupfeedHandler(webapp2.RequestHandler):
