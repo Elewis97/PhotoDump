@@ -20,12 +20,14 @@
         <form action="/create_group">
           <input type="submit" value="Make a new group!">
         </form>
+
         {% for group in photo_group_data %}
           <div class="groups">
             <div class="group_name"> {{group.group_name}} </div>
-            <a href="/groupfeed/view?group_id={{group.key.id()}}"> View group </a>
+            <a href="/newsfeed/view?group_id={{group.key.id()}}"> View group </a>
           </div>
         {% endfor %}
+
       </div>
 
       <div id="section">
@@ -39,10 +41,9 @@
             </p>
         </div>
       </div>
+
     </div>
-
   </div>
-
 </body>
 
 
