@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title> PhotoDump </title>
+    <link rel = "stylesheet" type = "text/css" href="../stylesheets/groupfeed.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+
+    <div id="header">
+      <h1>PhotoDump</h1>
+      <img id = "pic1" src = "../images/camera_preview.png" height = "35px"/>
+        <div id = "search">
+          <form>
+            Search PhotoDump
+            <input id = "searchbox" type="text" name="searchBox">
+          </form>
+        </div>
+      </div>
+
+      <form method="POST" action="/create_group">
+        Group Name: <input type="text" name="group_name">
+        <br/>
+        <select name="type">
+          <option value="public"> Public </option>
+          <option value="private"> Private </option>
+        </select>
+        <input type="submit" value="submit">
+      </form>
+
+  </body>
+
+</html>

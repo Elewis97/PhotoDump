@@ -25,11 +25,13 @@ from google.appengine.api import users
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
 from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.api import images
 
 class PhotoGroup(ndb.Model):
     group_name = ndb.StringProperty(required=True)
-    created_date = ndb.DateTimeProperty(auto_now_add=True)
     is_group_public = ndb.BooleanProperty(required=False, default=False)
+    created_by = ndb.UserProperty(auto_current_user_add=True)
+    created_date = ndb.DateTimeProperty(auto_now_add=True)
     likes = ndb.IntegerProperty(default=0)
     dislikes = ndb.IntegerProperty(default=0)
     photo_links = ndb.StringProperty(repeated=True)
@@ -38,7 +40,7 @@ class Photo(ndb.Model):
     name = ndb.StringProperty(required=False)
     caption = ndb.StringProperty(required=False)
     date_created = ndb.DateTimeProperty(auto_now_add=True)
-    uploaded_by = ndb.StringProperty()
+    uploaded_by = ndb.UserProperty(auto_current_user_add=True)
     likes = ndb.IntegerProperty(default=0)
     dislikes = ndb.IntegerProperty(default=0)
     blob_key = ndb.BlobKeyProperty()
@@ -67,8 +69,38 @@ class NewsfeedHandler(webapp2.RequestHandler):
 class GroupfeedHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('templates/groupfeed.html')
-        self.response.write('Hello world!')
+        query = PhotoGroup.query()
+        photo_group_data = query.fetch()
         self.response.write(template.render())
+        for group in photo_group_data:
+            self.response.write(group.group_name)
+            self.response.write("<br/>")
+
+#This handler is needed in order to create a group.
+#NEEDED FOR TESTING PURPOSES
+class CreateGroupHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja2_environment.get_template('templates/creategroup.html')
+        self.response.write(template.render())
+    def post(self):
+        template = jinja2_environment.get_template('templates/creategroup.html')
+        name = self.request.get("group_name")
+        type = self.request.get("type")
+        type = True if type.lower() == "public" else False
+        new_group = PhotoGroup(group_name = name, is_group_public=type)
+        new_group.put()
+        logging.info(self.request)
+        self.redirect("/success")
+
+class SuccessHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja2_environment.get_template('templates/success.html')
+        self.response.write(template.render())
+
+#THIS HANDLER IS FOR KIET TO TEST STUFF
+class TestHandler(webapp2.RequestHandler):
+    def get(self):
+        self.response.write(images.get_serving_url("2kBDZ5Z2bSes-oP1J6uK0w=="))
 
 #This is the upload handler it deals with uploading photos.
 #The photo will be uploaded to imgur using the imgur upload API
@@ -82,14 +114,10 @@ class UploadHandler(webapp2.RequestHandler):
 
 class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
     def post(self):
-        upload_stuff = self.get_uploads()
-        logging.info("UPLOAD!!! " + str(upload_stuff))
         try:
             #a = self.request.get("my_file")
-
-            upload = upload_stuff[0]
-
-            photo = Photo(uploaded_by=users.get_current_user().user_id(), blob_key=upload.key())
+            upload = self.get_uploads()[0]
+            photo = Photo(blob_key=upload.key())
             photo.put()
             self.redirect('/view_photo/%s' % upload.key())
             self.response.write("success")
@@ -112,5 +140,8 @@ app = webapp2.WSGIApplication([
     ('/groupfeed', GroupfeedHandler),
     ('/upload', UploadHandler),
     ('/uploaded', FinishedUploadHandler),
-    ('/view_photo/([^/]+)', ViewPhotoHandler)
+    ('/view_photo/([^/]+)', ViewPhotoHandler),
+    ('/test', TestHandler),
+    ('/create_group', CreateGroupHandler),
+    ('/success', SuccessHandler)
 ], debug=True)
