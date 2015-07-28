@@ -2,9 +2,21 @@
 <html>
   <head>
     <link rel = "stylesheet" type = "text/css" href="../stylesheets/search.css">
-    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'
+    type='text/css'>
   </head>
 
   <body>
+
+    <div class="search_result">
+      <a href="/">
+        {% for group in group_data %}
+          if group.group_name == search_term:
+            self.response.write(group.group_name)
+            self.response.write("<br/>")
+        {% endfor %}
+      </a>
+    </div>
+
   </body>
 </html>
