@@ -58,18 +58,22 @@ class WelcomeHandler(webapp2.RequestHandler):
             greeting = ('<a href="%s">Sign in or register</a>.' %
                         users.create_login_url('/newsfeed'))
         # this renders the template welcome.html
-        header = jinja2_environment.get_template('templates/header.html')
-        self.response.write(header.render())
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/welcome.html')
         self.response.write(template.render(greeting=greeting))
 
 class NewsfeedHandler(webapp2.RequestHandler):
     def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/newsfeed.html')
         self.response.write(template.render())
 
 class GroupfeedHandler(webapp2.RequestHandler):
     def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/groupfeed.html')
         query = PhotoGroup.query()
         photo_group_data = query.fetch()
@@ -84,6 +88,8 @@ class GroupfeedHandler(webapp2.RequestHandler):
 #NEEDED FOR TESTING PURPOSES
 class CreateGroupHandler(webapp2.RequestHandler):
     def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/creategroup.html')
         self.response.write(template.render())
     def post(self):
@@ -107,12 +113,16 @@ class ViewGroupHandler(webapp2.RequestHandler):
 # Tells the user when they successfully create a group.
 class SuccessHandler(webapp2.RequestHandler):
     def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/success.html')
         self.response.write(template.render())
 
 #THIS HANDLER IS FOR KIET TO TEST STUFF
 class TestHandler(webapp2.RequestHandler):
     def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         self.response.write(images.get_serving_url("2kBDZ5Z2bSes-oP1J6uK0w=="))
 
 #This is the upload handler it deals with uploading photos.
@@ -120,12 +130,17 @@ class TestHandler(webapp2.RequestHandler):
 #The imgur API will then return a link and the link will be stored in a Photo class
 class UploadHandler(webapp2.RequestHandler):
     def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         template = jinja2_environment.get_template("templates/upload.html")
         upload_url = blobstore.create_upload_url('/uploaded')
         template_vars = { "upload_url" : upload_url}
         self.response.write(template.render(template_vars))
 
 class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
+    def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
     def post(self):
         try:
             #a = self.request.get("my_file")
@@ -139,6 +154,8 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
 
 class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, photo_key):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         if not blobstore.get(photo_key):
             self.error(404)
         else:
