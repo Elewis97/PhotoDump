@@ -58,6 +58,8 @@ class WelcomeHandler(webapp2.RequestHandler):
             greeting = ('<a href="%s">Sign in or register</a>.' %
                         users.create_login_url('/newsfeed'))
         # this renders the template welcome.html
+        header = jinja2_environment.get_template('templates/header.html')
+        self.response.write(header.render())
         template = jinja2_environment.get_template('templates/welcome.html')
         self.response.write(template.render(greeting=greeting))
 
