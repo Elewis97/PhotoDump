@@ -23,9 +23,6 @@ from google.appengine.ext import ndb
 from google.appengine.ext import vendor
 from google.appengine.api import users
 
-# This line adds the imgur API library to the project
-# vendor.add('lib')
-
 class PhotoGroup(ndb.Model):
     group_name = ndb.StringProperty(required=True)
     created_date = ndb.DateTimeProperty(auto_now_add=True)
@@ -35,13 +32,13 @@ class PhotoGroup(ndb.Model):
     photo_links = ndb.StringProperty(repeated=True)
 
 class Photo(ndb.Model):
+    name = ndb.StringProperty(required=False)
     caption = ndb.StringProperty(required=False)
     date_created = ndb.DateTimeProperty(auto_now_add=True)
     uploaded_by = ndb.StringProperty()
     likes = ndb.IntegerProperty(default=0)
     dislikes = ndb.IntegerProperty(default=0)
     url = ndb.StringProperty(required=True)
-
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
@@ -57,8 +54,6 @@ class WelcomeHandler(webapp2.RequestHandler):
         # this renders the template welcome.html
         template = jinja2_environment.get_template('templates/welcome.html')
         self.response.write(template.render(greeting=greeting))
-
-
 
 class NewsfeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -78,7 +73,18 @@ class GroupfeedHandler(webapp2.RequestHandler):
 class UploadHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template("templates/upload.html")
-        self.response.write("Hello world")
+        self.response.write(template.render())
+        vendor.add('lib')
+    def post(self):
+        #a = self.request.get("my_file")
+        a = "test.jpg"
+        self.response.write(a)
+        client_id = '80a6eef5aa2bb73'
+        client_secret = 'fd6b0b666c450a219de0b43d49ab6e014e4636cd'
+        im = pyimgur.Imgur(client_id=client_id, client_secret=client_secret)
+        test = im.upload_image(a, title="test")
+        self.response.write("Success")
+
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
