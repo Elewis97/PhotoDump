@@ -45,9 +45,6 @@
   background: radial-gradient(circle closest-side at 50% 50%, white, #D3F2F1);
   flex-direction: column;
   align-self: stretch;
-  /*border-radius: 5%;
-  border: 2px solid black; */
-
 }
 
 #newsfeedtitle {
