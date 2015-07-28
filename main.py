@@ -71,10 +71,12 @@ class GroupfeedHandler(webapp2.RequestHandler):
         template = jinja2_environment.get_template('templates/groupfeed.html')
         query = PhotoGroup.query()
         photo_group_data = query.fetch()
+        template_vars = {"photo_group_data" : photo_group_data}
         self.response.write(template.render())
-        for group in photo_group_data:
-            self.response.write(group.group_name)
-            self.response.write("<br/>")
+
+#class ViewGroupHandler(webapp2.RequestHandler):
+#    def get(self):
+
 
 #This handler is needed in order to create a group.
 #NEEDED FOR TESTING PURPOSES
@@ -92,6 +94,7 @@ class CreateGroupHandler(webapp2.RequestHandler):
         logging.info(self.request)
         self.redirect("/success")
 
+# Tells the user when they successfully create a group.
 class SuccessHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('templates/success.html')
