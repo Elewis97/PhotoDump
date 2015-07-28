@@ -3,6 +3,7 @@
   min-height: 100vh;
   flex-direction: column;
   align-content: space-around;
+  margin: 0px;
 }
 
 .newsfeed-body{
@@ -12,7 +13,8 @@
   justify-content: center;
   align-content: space-between;
   flex: 1;
-
+  padding: 0;
+  margin: 0;
 }
 
 .content {
@@ -29,14 +31,46 @@
 .nav {
   order: -1;
   background-color: #E0F2F1;
+  /*background-image: url("http://www.unsigneddesign.com/Seamless_background_textures/1200px/seamlesstexture24_1200.jpg");*/
+
 
 }
 
 .aside{
-  background-color: #00BFA5;
+  background-color: #E0F2F1;
+  /*background-image: url("http://www.unsigneddesign.com/Seamless_background_textures/1200px/seamlesstexture24_1200.jpg");*/
 
 }
 
+
+/*now the newsfeed flexboxes*/
+
+
+
+.feed{
+  text-align: center;
+
+
+  /*flexbox stuff*/
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: space-around;
+  align-items: center;
+  flex: 1;
+
+  padding: 50px;
+  margin: 50px;
+}
+
+.feed div {
+  margin: 10px;
+  padding: 10px;
+  background-color: #E0F2F1;
+  border-radius: 25px;
+
+}
 
 
 #header {
