@@ -66,10 +66,9 @@ class NewsfeedHandler(webapp2.RequestHandler):
         else:
             greeting = ('%s! (<a href="%s">sign out</a>)' %
                 (user.nickname(), users.create_logout_url('/')))
-            # BACKEND: Looks through the user model to see if the current_user has
-            # a model in datastore. If not, then create a User model for the current_user
-            # and add it into datastore.
+            #Get the current user's model. If there's none then create a model for the new user.
             current_user = get_user_model()
+            #get the user's created photo groups. The variable is a list of PhotoGroup models
             photo_group_data = get_users_photo_groups(current_user)
             template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
             self.response.write(template.render(template_vars))
@@ -89,14 +88,9 @@ class CreateGroupHandler(webapp2.RequestHandler):
         type = True if type.lower() == "public" else False
         user = users.get_current_user()
         new_photo_group = PhotoGroup(group_name = name, is_group_public=type, description=description)
-        new_photo_group = new_photo_group.put()
-        temp_id = new_photo_group.id()
-        temp = PhotoGroup.get_by_id(temp_id)
-        group_url = "/newsfeed/view?group_id=" + str(temp_id)
-        temp.url = group_url
-        new_photo_group = temp.put()
+        temp = add_url_to_photogroup(new_photo_group).put()
         current_user_model = get_user_model()
-        current_user_model.users_photo_group_keys += [new_photo_group]
+        current_user_model.users_photo_group_keys += [temp]
         current_user_model.put()
         self.redirect("/newsfeed")
 
@@ -127,7 +121,6 @@ class ViewGroupHandler(webapp2.RequestHandler):
         template_vars = { "group" : group}
         template = jinja2_environment.get_template('templates/group.html')
         self.response.write(template.render(template_vars))
-
 
 #This is the upload handler it deals with uploading photos.
 #The photo will be uploaded to imgur using the imgur upload API
@@ -187,7 +180,19 @@ class TestHandler(webapp2.RequestHandler):
     def get(self):
         current_user = get_user_model()
         users_photo_groups = get_users_photo_groups(current_user)
-        self.response.write(users_photo_groups)
+        for group in users_photo_groups:
+            self.response.write(group.photos[0].url)
+            self.response.write(group.group_name)
+            self.response.write("<br/>")
+            self.response.write("<br/>")
+
+def add_url_to_photogroup(new_photo_group):
+    new_photo_group = new_photo_group.put()
+    temp_id = new_photo_group.id()
+    temp = PhotoGroup.get_by_id(temp_id)
+    group_url = "/newsfeed/view?group_id=" + str(temp_id)
+    temp.url = group_url
+    return temp
 
 def get_user_model():
     current_user = users.get_current_user()
