@@ -87,7 +87,7 @@ h2 {
   font-family: 'Merriweather';
   text-align: right;
   background-color: white;
-  border-radius: 10vh;
+  /*border-radius: 10vh;*/
   margin-bottom: 3%;
   flex-wrap: nowrap;
   justify-content: space-around;
@@ -144,7 +144,10 @@ input[type=submit] {
   padding-bottom: .7vh;
 }
 
-
+#viewstuff {
+  color: #00BFA5;
+  text-decoration: none;
+}
 /*.content {
   text-align: center;
   flex: 1;
