@@ -35,40 +35,45 @@ class PhotoGroup(ndb.Model):
 
 class User(ndb.Model):
     user = ndb.UserProperty()
-    photo_group_keys = ndb.KeyProperty(repeated=True)
+    users_photo_group_keys = ndb.KeyProperty(repeated=True)
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
         # this is the login section
-        logging.info("WELCOME HANDLER ENTERED")
         user = users.get_current_user()
         if user:
             greeting = ('Hey, %s! (<a href="%s">sign out</a>)' %
                 (user.nickname(), users.create_logout_url('/')))
+            self.redirect('/newsfeed')
         else:
             greeting = ('<a href="%s">Sign in or register</a>.' %
                         users.create_login_url('/newsfeed'))
-        # this renders the template welcome.html
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        template = jinja2_environment.get_template('templates/welcome.html')
-        self.response.write(template.render(greeting=greeting))
+            # this renders the template welcome.html
+            fixed = jinja2_environment.get_template('templates/fixed.html')
+            self.response.write(fixed.render())
+            template = jinja2_environment.get_template('templates/welcome.html')
+            self.response.write(template.render(greeting=greeting))
 
 class NewsfeedHandler(webapp2.RequestHandler):
     def get(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/newsfeed.html')
-
-        # BACKEND: Looks through the user model to see if the current_user has
-        # a model in datastore. If not, then create a User model for the current_user
-        # and add it into datastore.
-        current_user = get_user_model()
-        photo_group_data = get_users_photo_groups(current_user)
-        logging.info(photo_group_data)
-        greeting = "hello"
-        template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
-        self.response.write(template.render(template_vars))
+        user = users.get_current_user()
+        if not user:
+            logging.info("DOES IT GO IN HERE?")
+            self.redirect('/')
+        else:
+            greeting = ('%s! (<a href="%s">sign out</a>)' %
+                (user.nickname(), users.create_logout_url('/')))
+            # BACKEND: Looks through the user model to see if the current_user has
+            # a model in datastore. If not, then create a User model for the current_user
+            # and add it into datastore.
+            current_user = get_user_model()
+            photo_group_data = get_users_photo_groups(current_user)
+            logging.info(photo_group_data)
+            template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
+            self.response.write(template.render(template_vars))
 
 #This handler is needed in order to create a group.
 #NEEDED FOR TESTING PURPOSES
@@ -86,7 +91,7 @@ class CreateGroupHandler(webapp2.RequestHandler):
         user = users.get_current_user()
         new_photo_group = PhotoGroup(group_name = name, is_group_public=type, description=description).put()
         current_user_model = get_user_model()
-        current_user_model.photo_group_keys += [new_photo_group]
+        current_user_model.users_photo_group_keys += [new_photo_group]
         current_user_model.put()
         self.redirect("/newsfeed")
 
@@ -191,9 +196,9 @@ def get_user_model():
 
 def get_users_photo_groups(current_user):
     users_photo_groups = []
-    photo_group_keys = current_user.photo_group_keys
-    logging.info(photo_group_keys)
-    for photo_group in photo_group_keys:
+    users_photo_group_keys = current_user.users_photo_group_keys
+    logging.info(users_photo_group_keys)
+    for photo_group in users_photo_group_keys:
         id = photo_group.id()
         group = PhotoGroup.get_by_id(id)
         users_photo_groups += [group]
