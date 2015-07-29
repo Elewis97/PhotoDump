@@ -56,13 +56,10 @@ class NewsfeedHandler(webapp2.RequestHandler):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/newsfeed.html')
-
-        self.response.write(template.render())
-
+        query = PhotoGroup.query()
+        photo_group_data = query.fetch() #PhotoGroup model list
+        template_vars = {"photo_group_data" : photo_group_data}
         self.response.write(template.render(template_vars))
-
-
-        self.response.write(template.render())
 
 
 class GroupfeedHandler(webapp2.RequestHandler):
@@ -95,7 +92,7 @@ class CreateGroupHandler(webapp2.RequestHandler):
         new_group = PhotoGroup(group_name = name, is_group_public=type)
         new_group.put()
         logging.info(self.request)
-        self.redirect("/success")
+        self.redirect("/newsfeed")
 
 class GroupSearchHandler(webapp2.RequestHandler):
     def get(self):
@@ -124,8 +121,6 @@ class ViewGroupHandler(webapp2.RequestHandler):
         template_vars = { "group" : group}
         template = jinja2_environment.get_template('templates/group.html')
         self.response.write(template.render(template_vars))
-
-
 
 # Tells the user when they successfully create a group.
 class SuccessHandler(webapp2.RequestHandler):
@@ -178,15 +173,12 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
                 blob_key = upload.key()
                 serving_url = images.get_serving_url(blob_key)
                 photo = Photo(blob_key=blob_key, url=serving_url)
-
-                group.photo += [photo]
-                self.response.write("<img src='"+ serving_url+"' >")
-                self.response.write("<br/>")
-            self.response.write("success")
+                group.photos += [photo]
+                group.put()
+                logging.info("THIS WORKED RIGHT HERE")
+            self.redirect("/newsfeed/view?group_id="+str(group_id))
         except:
             self.response.write("failure")
-
-
 
 #THIS HANDLER IS FOR KIET TO TEST STUFF
 class TestHandler(webapp2.RequestHandler):
@@ -214,20 +206,6 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
         else:
             self.send_blob(photo_key)
 
-# Tells the user when they successfully create a group.
-class SuccessHandler(webapp2.RequestHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        template = jinja2_environment.get_template('templates/success.html')
-        self.response.write(template.render())
-
-                group.photos += [photo]
-                group.put()
-                logging.info("THIS WORKED RIGHT HERE")
-            self.redirect("/newsfeed/view?group_id="+str(group_id))
-        except:
-            self.response.write("failure")
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -236,12 +214,11 @@ app = webapp2.WSGIApplication([
     ('/', WelcomeHandler),
     ('/newsfeed', NewsfeedHandler),
     ('/groupfeed', GroupfeedHandler),
-    ('/groupfeed/view', ViewGroupHandler),
+    ('/newsfeed/view', ViewGroupHandler),
     ('/upload', UploadHandler),
     ('/uploaded', FinishedUploadHandler),
     ('/view_photo/([^/]+)', ViewPhotoHandler),
     ('/test', TestHandler),
     ('/create_group', CreateGroupHandler),
-    ('/success', SuccessHandler),
     ('/search', GroupSearchHandler)
 ], debug=True)
