@@ -56,15 +56,14 @@ class NewsfeedHandler(webapp2.RequestHandler):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/newsfeed.html')
-<<<<<<< HEAD
 
         self.response.write(template.render())
 
         self.response.write(template.render(template_vars))
 
-=======
+
         self.response.write(template.render())
->>>>>>> a8a3c6cce5e69fece32b8f74d30e068a523019be
+
 
 class GroupfeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -125,7 +124,7 @@ class ViewGroupHandler(webapp2.RequestHandler):
         template_vars = { "group" : group}
         template = jinja2_environment.get_template('templates/group.html')
         self.response.write(template.render(template_vars))
-<<<<<<< HEAD
+
 
 
 # Tells the user when they successfully create a group.
@@ -153,8 +152,6 @@ class TestHandler(webapp2.RequestHandler):
         #self.response.write(group.photos)
         #self.response.write("DISLIKES: " + str(group.dislikes))
 
-=======
->>>>>>> a8a3c6cce5e69fece32b8f74d30e068a523019be
 
 #This is the upload handler it deals with uploading photos.
 #The photo will be uploaded to imgur using the imgur upload API
@@ -181,10 +178,7 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
                 blob_key = upload.key()
                 serving_url = images.get_serving_url(blob_key)
                 photo = Photo(blob_key=blob_key, url=serving_url)
-<<<<<<< HEAD
 
-=======
->>>>>>> a8a3c6cce5e69fece32b8f74d30e068a523019be
                 group.photo += [photo]
                 self.response.write("<img src='"+ serving_url+"' >")
                 self.response.write("<br/>")
@@ -228,8 +222,6 @@ class SuccessHandler(webapp2.RequestHandler):
         template = jinja2_environment.get_template('templates/success.html')
         self.response.write(template.render())
 
-<<<<<<< HEAD
-
                 group.photos += [photo]
                 group.put()
                 logging.info("THIS WORKED RIGHT HERE")
@@ -237,9 +229,6 @@ class SuccessHandler(webapp2.RequestHandler):
         except:
             self.response.write("failure")
 
-
-=======
->>>>>>> a8a3c6cce5e69fece32b8f74d30e068a523019be
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
