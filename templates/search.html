@@ -9,13 +9,9 @@
   <body>
 
     <div class="search_result">
-      <a href="/">
         {% for group in group_data %}
-          if group.group_name == search_term:
-            self.response.write(group.group_name)
-            self.response.write("<br/>")
+          <A href="http://google.com"> {{ group.group_name }} </A>
         {% endfor %}
-      </a>
     </div>
 
   </body>
