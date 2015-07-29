@@ -28,11 +28,10 @@ body {
 
 #columnforsidebar {
   overflow: scroll;
-  display: flex;
   flex-direction: column;
   text-align: center;
   padding: 1vw;
-
+  margin-bottom: 4vh;
 }
 
 #welcometext {
@@ -42,9 +41,11 @@ body {
   text-shadow: .25vh 0vh .25vh #ccc, 0vh .25vh .25vh #eee,
   .5vh .25vh .25vh #ccc;
   font-size: 3vh;
-  word-wrap: break-word;
+  
 }
-
+h2 {
+  padding-top: 1vh;
+}
 #section {
   overflow: scroll;
   display: flex;
@@ -98,13 +99,21 @@ p {
   align-items: center;
   width: 10%;
 }
-
+span {
+  padding: .3vh;
+}
 .groups{
-
   box-sizing: border-box;
   background-color: white;
   margin: .1vw;
   padding: .2vw;
+}
+.group_name {
+  vertical-align: middle;
+  padding-bottom: .4vh;
+}
+a {
+
 }
 
 /*.content {

@@ -1,3 +1,6 @@
+body {
+  padding-top: 13vh;
+}
 #header-container {
   position: fixed;
   top: 0;
@@ -59,7 +62,7 @@
 }
 
 #footer {
-    position: absolute;
+    position: fixed;
     bottom: 0vh;
     font-family: 'Raleway';
     color:white;
