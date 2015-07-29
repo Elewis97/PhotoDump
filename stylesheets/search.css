@@ -7,9 +7,11 @@ body {
 
 section {
   text-align: center;
-
+  max-height: 10vh;
 }
 h4 {
+  text-align: center;
   font-size: 3vw;
   margin-bottom: 0vh;
+
 }

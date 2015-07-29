@@ -7,7 +7,7 @@
     <link rel = "stylesheet" type = "text/css" href="/stylesheets/group.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'
      type='text/css'>
-    <script src="lib/jquery.js"></script>
+     <script src="lib/jquery.js"></script>
 </head>
 
 <body>
@@ -18,7 +18,7 @@
         <h1 id = "groupname"> Group name: {{group.group_name}} </h1>
           <form action="/upload" method="POST">
             <input type="hidden" name="group_id" value="{{group.key.id()}}">
-            <input type="submit" value="Upload photos!">
+            <input type="submit" value="Upload photos!"></input>
           </form>
 
       </div>
@@ -28,7 +28,7 @@
           {% for photo in group.photos %}
             <figure>
             <img id = "singlepic" src="{{photo.url}}">
-            <figcaption> caption </figcaption>
+            <figcaption> user caption datePosted </figcaption>
             </figure>
           {% endfor %}
         </div>
