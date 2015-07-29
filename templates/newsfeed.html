@@ -23,7 +23,7 @@
         {% for group in photo_group_data %}
           <div class="groups">
             <div class="group_name"> {{group.group_name}} </div>
-            <a href="/newsfeed/view?group_id={{group.key.id()}}"> View group </a>
+            <a id = "viewstuff" href="/newsfeed/view?group_id={{group.key.id()}}"> View group </a>
           </div>
         {% endfor %}
       </div>
@@ -42,7 +42,8 @@
                 <p class="photogroup-name"> {{group.group_name}} </p>
                 <p class="photogroup-description"> {{group.description}}</p>
                 <p class="photogroup-creator"> Created by: {{group.created_by}}</p>
-                <p class="photogroup-link"> <a href="{{group.url}}"> View Group </a> </p>
+                <p class="photogroup-link"> <a id = "viewstuff"
+                  href="/newsfeed/view?group_id={{group.key.id()}}"> View Group </a> </p>
               </div>
             </div>
             {% endfor %}
