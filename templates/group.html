@@ -12,18 +12,16 @@
   <div class = "groupfeed">
     <div class = "section">
       <div id = "columnforsidebar">
-        <h1 id = "groupname"> Group nameyey yeys yeses: {{group.group_name}} </h1>
+        <h1 id = "groupname"> Group name: {{group.group_name}} </h1>
           <form action="/upload" method="POST">
             <input type="hidden" name="group_id" value="{{group.key.id()}}">
             <input type="submit" value="Upload photos!">
           </form>
       </div>
 
-      <div class = "allpics">
         {% for photo in group.photos %}
           <img id = "singlepic" src="{{photo.url}}">
         {% endfor %}
-      </div>
     </div>
   </div>
 </body>
