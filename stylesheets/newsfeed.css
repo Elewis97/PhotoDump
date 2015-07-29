@@ -99,7 +99,7 @@ h2 {
   width: 85%;
 }
 
-.testpic {
+.photogroup-pic {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -109,6 +109,17 @@ h2 {
   width:50%;
   padding-right: .5vw;
 }
+
+.photogroup-name {
+  font-size: 3vh;
+  font-weight: bold;
+}
+
+.photogroup-creator {
+  font-size: 1.5vh;
+  font-weight: lighter;
+}
+
 span {
   padding: .3vh;
   font-size: 2vh;

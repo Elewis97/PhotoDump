@@ -10,11 +10,10 @@
   <body>
 
     <section>
-      <div class="search_result">
+      <h4>Search Results:</h4>
           {% for group in group_result %}
             <A href="/newsfeed/view?group_id={{group.key.id()}}"> {{ group.group_name }} </A>
           {% endfor %}
-      </div>
   </section>
 
   </body>

@@ -31,18 +31,17 @@
       <div id="section">
         <h2 id ="newsfeedtitle">Check out your newsfeed!</h2>
           <div class = "feed">
-
+            {% for group in photo_group_data %}
             <div class="newsfeed-groups">
-              <img class = "testpic" src = "resources/images/cssigroup.jpg" />
+              <img class = "photogroup-pic" src = "{{group.photos[0].url}}" />
               <div class="info">
-                <p> Title </p>
-                <p> Standing on the River Thames, London has been a major settlement for
-                two millennia, its history going back to its founding by the Romans,
-                who named it Londinium. </p>
-                <p> <a href="https://google.com"> View Group </a> </p>
+                <p class="photogroup-name"> {{group.group_name}} </p>
+                <p class="photogroup-description"> {{group.description}}</p>
+                <p class="photogroup-creator"> Created by: {{group.created_by}}</p>
+                <p class="photogroup-link"> <a href="{{group.url}}"> View Group </a> </p>
               </div>
             </div>
-
+            {% endfor %}
         </div>
       </div>
 
