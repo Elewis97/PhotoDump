@@ -56,23 +56,27 @@ class WelcomeHandler(webapp2.RequestHandler):
 
 class NewsfeedHandler(webapp2.RequestHandler):
     def get(self):
-        temp_user = User(user=users.get_current_user())
-        user_list = User.query().fetch()
-        added = False
-        for user in user_list:
-            if user.user == temp_user.user:
-                added = True
-        if not added:
-            temp_user.put()
-
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/newsfeed.html')
-        query = PhotoGroup.query()
-        photo_group_data = query.fetch() #PhotoGroup model list
-        user = users.get_current_user()
-        greeting = user.nickname()
-        template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
+
+        # BACKEND: Looks through the user model to see if the current_user has
+        # a model in datastore. If not, then create a User model for the current_user
+        # and add it into datastore.
+        current_user = users.get_current_user()
+        temp_user_model = User(user=current_user)
+        user_list = User.query().fetch()
+        added = False
+        for user in user_list:
+            if user.user == current_user:
+                added = True
+                current_user_model = user
+        if not added:
+            temp_user_model.put()
+            current_user_model = temp_user_model
+
+        greeting = current_user.nickname()
+        template_vars = {"photo_group_data" : current_user_model.photo_groups, "greeting" : greeting}
         self.response.write(template.render(template_vars))
 
 #This handler is needed in order to create a group.
@@ -130,13 +134,6 @@ class ViewGroupHandler(webapp2.RequestHandler):
         template = jinja2_environment.get_template('templates/group.html')
         self.response.write(template.render(template_vars))
 
-# Tells the user when they successfully create a group.
-class SuccessHandler(webapp2.RequestHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        template = jinja2_environment.get_template('templates/success.html')
-        self.response.write(template.render())
 
 #This is the upload handler it deals with uploading photos.
 #The photo will be uploaded to imgur using the imgur upload API
@@ -197,6 +194,12 @@ class TestHandler(webapp2.RequestHandler):
         self.response.write("HELLO WORLD")
         user = User.get_by_id(6244676289953792)
         self.response.write(user)
+        self.response.write("</br>")
+        self.response.write(user.photo_groups)
+        self.response.write("</br>")
+        for photo_groups in user.photo_groups:
+            self.response.write(photo_groups.group_name)
+            self.response.write("</br>")
         #self.response.write(group.photos)
         #self.response.write("DISLIKES: " + str(group.dislikes))
 
