@@ -196,6 +196,14 @@ def get_user_model():
     new_user_model.put()
     return new_user_model
 
+
+class AboutHandler(webapp2.RequestHandler):
+    def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
+        about = jinja2_environment.get_template('templates/about.html')
+        self.response.write(about.render())
+
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
@@ -209,5 +217,6 @@ app = webapp2.WSGIApplication([
     ('/view_photo/([^/]+)', ViewPhotoHandler),
     ('/test', TestHandler),
     ('/create_group', CreateGroupHandler),
-    ('/search', GroupSearchHandler)
+    ('/search', GroupSearchHandler),
+    ('/about', AboutHandler)
 ], debug=True)
