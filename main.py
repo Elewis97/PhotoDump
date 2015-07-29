@@ -119,9 +119,9 @@ class GroupSearchHandler(webapp2.RequestHandler):
 
         #         self.response.write(group.group_name)
         #         self.response.write("<br/>")
-        template_vars = {'group': group_data}
+        template_vars = {'group_result': group_result}
         template = jinja2_environment.get_template('templates/search.html')
-        self.response.write(template.render(group_data=group_data))
+        self.response.write(template.render(template_vars))
 
 class ViewGroupHandler(webapp2.RequestHandler):
     def get(self):
