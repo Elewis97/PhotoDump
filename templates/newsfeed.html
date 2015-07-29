@@ -33,7 +33,11 @@
           <div class = "feed">
             {% for group in photo_group_data %}
             <div class="newsfeed-groups">
-              <img class = "photogroup-pic" src = "{{group.photos[0].url}}" />
+              {% if group.photos[0] is defined %}
+                <img class = "photogroup-pic" src ="{{group.photos[0].url}}" />
+              {% else %}
+                <p> THERE ARE NO IMAGES IN THIS GROUP </p>
+              {% endif %}
               <div class="info">
                 <p class="photogroup-name"> {{group.group_name}} </p>
                 <p class="photogroup-description"> {{group.description}}</p>
