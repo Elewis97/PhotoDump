@@ -12,7 +12,7 @@ body {
   align-self: stretch;
   flex-direction: column;
   align-content: space-around;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
   margin: 0vmax;
@@ -32,19 +32,19 @@ body {
   text-align: center;
   padding: 1vw;
   margin-bottom: 4vh;
+  width: 35%;
 }
 
 #welcometext {
-  margin-left: 1vw;
-  margin-right: 1vw;
+  margin-left: .5vw;
   text-align: left;
   text-shadow: .25vh 0vh .25vh #ccc, 0vh .25vh .25vh #eee,
   .5vh .25vh .25vh #ccc;
   font-size: 3vh;
-  
+
 }
 h2 {
-  padding-top: 1vh;
+  padding-top: 2vh;
 }
 #section {
   overflow: scroll;
@@ -56,6 +56,7 @@ h2 {
 
 #newsfeedtitle {
   margin-left: 3%;
+  font-size: 4vh;
   text-shadow: .25vh 0vh .25vh #ccc, 0vh .25vh .25vh #eee,
   .5vh .25vh .25vh #ccc;
 }
@@ -88,6 +89,7 @@ p {
   justify-content: space-around;
   align-content: flex-end;
   align-items: center;
+  font-size: 2.5vh;
 }
 
 .test {
@@ -101,6 +103,10 @@ p {
 }
 span {
   padding: .3vh;
+  font-size: 2vh;
+}
+form {
+  font-size: 2vh;
 }
 .groups{
   box-sizing: border-box;
@@ -112,9 +118,7 @@ span {
   vertical-align: middle;
   padding-bottom: .4vh;
 }
-a {
 
-}
 
 /*.content {
   text-align: center;
