@@ -1,24 +1,56 @@
-#header {
-    background-color:#00BFA5;
-    color:white;
-    text-align:left;
-    margin: 0;
-    padding: .5%;
-    font-family: 'Raleway', sans-serif;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+#header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10vh;
+  background: #00BFA5;
 }
 
-#logo {
+#logo-text {
+  position: fixed;
+  left: 0;
   color: white;
   text-decoration: none;
-  font-size: 2em;
+  font-family: 'Raleway';
+  font-size: 7vh;
+  text-shadow:  0.25vh 0.25vh 0vh #ccc, 0.75vh 0.75vh 1.5vh black;
+}
+
+#logo-text:hover {
+  opacity: 0.75;
+}
+
+#logo-pic {
+  top: 1vh;
+  height: 8vh;
+  position: fixed;
+  left: 40vh;
   text-shadow:  1px 1px 0px #ccc, 3px 3px 8px black;
-  padding-bottom: 2%;
-  padding-left: .5%;
-  padding-right: 1%;
-  padding-top: 1.5%;
+}
+
+#search {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 10vh;
+  margin: 0;
+}
+
+#searchbox {
+  color: teal;
+  height: inherit;
+  font-size: 2vw;
+  width: 20vw;
+  box-sizing: border-box;
+}
+
+
+#submit-button {
+  height: 10vh;
+  width: 10vw;
+  border: 0;
+  padding: 0;
 }
 
 #pic1 {
@@ -26,10 +58,13 @@
     height: 6%;
 }
 
+<<<<<<< HEAD
 #search {
   margin-left: 55%;
   float: right;
 }
+=======
+>>>>>>> c67310d0beb1c28b1e4728f4b4f0e943ff3877da
 
 #footer {
     position: fixed;
