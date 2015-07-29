@@ -31,8 +31,12 @@ class PhotoGroup(ndb.Model):
     likes = ndb.IntegerProperty(default=0)
     dislikes = ndb.IntegerProperty(default=0)
     photo_links = ndb.StringProperty(repeated=True)
-    photos = ndb.StructuredProperty(Photo, repeated = True)
+    photos = ndb.StructuredProperty(Photo, repeated=True)
+    description = ndb.StringProperty(required=False)
 
+class User(ndb.Model):
+    user = ndb.UserProperty()
+    photo_groups = ndb.LocalStructuredProperty(PhotoGroup, repeated=True)
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
@@ -53,14 +57,24 @@ class WelcomeHandler(webapp2.RequestHandler):
 
 class NewsfeedHandler(webapp2.RequestHandler):
     def get(self):
+        temp_user = User(user=users.get_current_user())
+        user_list = User.query().fetch()
+        added = False
+        for user in user_list:
+            if user.user == temp_user.user:
+                added = True
+        if not added:
+            temp_user.put()
+
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/newsfeed.html')
         query = PhotoGroup.query()
         photo_group_data = query.fetch() #PhotoGroup model list
-        template_vars = {"photo_group_data" : photo_group_data}
+        user = users.get_current_user()
+        greeting = user.nickname()
+        template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
         self.response.write(template.render(template_vars))
-
 
 class GroupfeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -71,10 +85,6 @@ class GroupfeedHandler(webapp2.RequestHandler):
         photo_group_data = query.fetch()
         template_vars = {"photo_group_data" : photo_group_data} #PhotoGroup model list
         self.response.write(template.render(template_vars))
-
-#class ViewGroupHandler(webapp2.RequestHandler):
-#    def get(self):
-
 
 #This handler is needed in order to create a group.
 #NEEDED FOR TESTING PURPOSES
@@ -88,8 +98,10 @@ class CreateGroupHandler(webapp2.RequestHandler):
         template = jinja2_environment.get_template('templates/creategroup.html')
         name = self.request.get("group_name")
         type = self.request.get("type")
+        description = self.request.get("description")
         type = True if type.lower() == "public" else False
-        new_group = PhotoGroup(group_name = name, is_group_public=type)
+        user = users.get_current_user()
+        new_group = PhotoGroup(group_name = name, is_group_public=type, description=description, )
         new_group.put()
         logging.info(self.request)
         self.redirect("/newsfeed")

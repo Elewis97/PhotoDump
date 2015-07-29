@@ -15,11 +15,11 @@ handlers:
 - url: /stylesheets
   static_dir: stylesheets
 
-- url: /images
-  static_dir: images
-
 - url: /resources
   static_dir: resources
+
+- url: /resources/images
+  static_dir: resources/images
 
 - url: .*
   script: main.app

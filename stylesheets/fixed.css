@@ -1,47 +1,47 @@
 #header-container {
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   height: 10vh;
   background: #00BFA5;
 }
 
 #logo-text {
-  position: fixed;
   left: 0;
   color: white;
   text-decoration: none;
   font-family: 'Raleway';
   font-size: 7vh;
   text-shadow:  0.25vh 0.25vh 0vh #ccc, 0.75vh 0.75vh 1.5vh black;
+  margin-left: 1vh;
+  margin-top: 1vh;
 }
 
 #logo-text:hover {
-  opacity: 0.75;
+  font-weight: bold;
 }
 
 #logo-pic {
+  position: absolute;
+  margin-left: 1vw;
   top: 1vh;
   height: 8vh;
-  position: fixed;
-  left: 40vh;
   text-shadow:  1px 1px 0px #ccc, 3px 3px 8px black;
 }
 
 #search {
-  position: fixed;
+  margin-top: 1.5vh;
+  margin-right: 1vw;
   right: 0;
   top: 0;
-  height: 10vh;
-  margin: 0;
-}
-
-#search-inner {
-  margin-top: 1.5vh;
+  float: right;
   width: 25vw;
+  opacity: 0.75;
 }
 
+#search:hover {
+  opacity: 1;
+}
 
 #searchbox {
   color: teal;
@@ -50,11 +50,9 @@
   height: 7vh;
   width: 20vw;
   border: 0;
-  border-radius: 20vh;
   box-sizing: border-box;
   float: left;
 }
-
 
 #submit-button {
   background-color: #E0F2F1;
@@ -66,16 +64,6 @@
   padding: 0;
 }
 
-#pic1 {
-    margin-top: 1.5%;
-    height: 6%;
-}
-
-
-#search {
-  margin-left: 55%;
-  float: right;
-}
 
 #footer {
     position: fixed;
