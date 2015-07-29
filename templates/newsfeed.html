@@ -36,7 +36,7 @@
               {% if group.photos[0] is defined %}
                 <img class = "photogroup-pic" src ="{{group.photos[0].url}}" />
               {% else %}
-                <p> THERE ARE NO IMAGES IN THIS GROUP </p>
+                <p id = "noimages"> THERE ARE NO IMAGES IN THIS GROUP </p>
               {% endif %}
               <div class="info">
                 <p class="photogroup-name"> {{group.group_name}} </p>

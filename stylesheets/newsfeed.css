@@ -44,7 +44,7 @@ body {
   text-shadow: .25vh 0vh .25vh #ccc, 0vh .25vh .25vh #eee,
   .5vh .25vh .25vh #ccc;
   font-size: 3vh;
-
+  word-wrap: break-word;
 }
 h2 {
   padding-top: 2vh;
@@ -93,7 +93,6 @@ h2 {
   justify-content: space-around;
   align-content: flex-end;
   align-items: center;
-  font-size: 2vh;
   width: 80%;
 }
 
@@ -108,10 +107,11 @@ h2 {
   margin-top: 2.5vh;
   margin-bottom: 2.5vh;
   padding-right: .5vw;
+  padding-left: .5vw;
 }
 
 .photogroup-name {
-  font-size: 3vh;
+  font-size: 3.5vh;
   font-weight: bold;
 }
 
@@ -126,10 +126,14 @@ span {
 }
 
 input[type=submit] {
-    width: 12vw;
-    height: 3vh;
+    word-wrap: break-word;
     font-size: 1.5vh;
     font-size: 1vw;
+
+}
+#noimages {
+  font-size: 3vh;
+  padding-right: 1.5vw;
 }
 .groups{
   box-sizing: border-box;
@@ -141,12 +145,14 @@ input[type=submit] {
 }
 .group_name {
   vertical-align: middle;
+  font-size: 2.5vh;
   padding-bottom: .7vh;
 }
 
 #viewstuff {
   color: #00BFA5;
   text-decoration: none;
+  font-size: 2vh;
 }
 /*.content {
   text-align: center;

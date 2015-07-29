@@ -1,8 +1,8 @@
 body {
-  padding-top: 13vh;
+  padding-top: 12vh;
+  overflow: scroll;
 }
 #header-container {
-  overflow-x: auto;
   position: fixed;
   top: 0;
   width: 100%;
@@ -10,6 +10,7 @@ body {
   padding-top: 2vh;
   padding-bottom: .5vh;
   background: #00BFA5;
+  overflow: scroll;
 }
 
 #logo-text {
@@ -27,24 +28,27 @@ body {
 }
 
 #logo-pic {
-  position: absolute;
+  position: fixed;
   margin-left: 1vw;
   top: 2.5vh;
   height: 6.5vh;
+  overflow: scroll;
 }
 #mglass {
+  margin-top: -.5vh;
   height:5.5vh;
-
+  overflow: hidden;
 }
 
 #search {
-  margin-top: 1vh;
+  margin-top: 2vh;
   margin-right: 1vw;
   right: 0;
   top: 0;
   float: right;
   width: 25vw;
-  opacity: 0.75;
+  opacity: 0.80;
+  overflow: hidden;
 }
 
 #search:hover {
@@ -54,12 +58,12 @@ body {
 #searchbox {
   color: teal;
   background-color: white;
-  font-size: 2vh;
-  height: 6vh;
-  width: 17vw;
-  border: 0;
+  font-size: 2.2vh;
+  height: 5vh;
+  width: 20vw;
   box-sizing: border-box;
   float: left;
+  overflow: hidden;
 }
 
 #footer {
@@ -74,6 +78,7 @@ body {
     text-align:center;
     width: 100%;
     background-color:#00BFA5;
+    overflow: hidden;
 }
 #about {
   text-decoration: none;
