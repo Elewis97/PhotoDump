@@ -12,7 +12,7 @@
     <section>
       <div class="search_result">
           {% for group in group_result %}
-            <A href="http://google.com"> {{ group.group_name }} </A>
+            <A href="/newsfeed/view?group_id={{group.key.id()}}"> {{ group.group_name }} </A>
           {% endfor %}
       </div>
   </section>
