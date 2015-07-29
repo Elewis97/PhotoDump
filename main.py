@@ -132,7 +132,7 @@ class UploadHandler(webapp2.RequestHandler):
         group_id = int(self.request.get("group_id"))
         group = PhotoGroup.get_by_id(group_id)
         template = jinja2_environment.get_template("templates/upload.html")
-        upload_url = blobstore.create_upload_url('/uploaded')
+        upload_url = blobstore.create_upload_url('/upload/edit')
         template_vars = { "upload_url" : upload_url, "group" : group}
         self.response.write(template.render(template_vars))
 
@@ -154,9 +154,25 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         except:
             self.response.write("failure")
 
-class EditUploadsHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write("HELLO WORLD")
+class EditUploadsHandler(blobstore_handlers.BlobstoreUploadHandler):
+    def post(self):
+        try:
+            fixed = jinja2_environment.get_template('templates/fixed.html')
+            self.response.write(fixed.render())
+            group_id = int(self.request.get("group_id"))
+            group = PhotoGroup.get_by_id(group_id)
+            upload_list = self.get_uploads()
+            logging.info("THIS WORKED RIGHT HERE")
+            for upload in upload_list:
+                logging.info("THIS WORKED RIGHT HERE")
+                blob_key = upload.key()
+                serving_url = images.get_serving_url(blob_key)
+                photo = Photo(blob_key=blob_key, url=serving_url)
+                group.photos += [photo]
+                group.put()
+            self.response.write("Success")
+        except:
+            self.response.write("failure")
 
 #This handler lets me look at all the groups that have been stored
 #in datastore. Used for debugging purposes.
