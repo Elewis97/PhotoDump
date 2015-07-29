@@ -62,7 +62,7 @@ body {
 }
 
 #footer {
-    position: absolute;
+    position: fixed;
     bottom: 0vh;
     font-family: 'Raleway';
     color:white;

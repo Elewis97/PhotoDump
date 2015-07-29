@@ -1,3 +1,7 @@
+body h1 {
+  float: right;
+  font-family: 'Raleway';
+}
 .photos {
   height: 300px;
 }
