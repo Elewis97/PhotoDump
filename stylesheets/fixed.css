@@ -63,6 +63,7 @@ body {
 }
 
 #footer {
+    text-decoration: none;
     position: fixed;
     bottom: 0vh;
     font-family: 'Raleway';
@@ -73,4 +74,8 @@ body {
     text-align:center;
     width: 100%;
     background-color:#00BFA5;
+}
+a {
+  text-decoration: none;
+  color: white;
 }
