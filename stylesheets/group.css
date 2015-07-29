@@ -44,10 +44,8 @@
   margin-right: auto;
   padding-bottom: 4vh;
 }
-#singlepic {
+figure {
   background-color: white;
-  height: 300px;
-
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -56,9 +54,12 @@
   align-items: center;
   flex: 1;
   padding: 2vh;
-  padding-bottom: 3vh;
+  margin-bottom: 5vh;
+  padding-bottom: 12vh;
 }
-
+#singlepic {
+  height: 300px;
+}
 #groupname {
 margin-left: 1vw;
 margin-right: 1vw;

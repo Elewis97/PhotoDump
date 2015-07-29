@@ -25,7 +25,10 @@
       <div id = "rightsidebar">
         <div id = "allpics">
           {% for photo in group.photos %}
+            <figure>
             <img id = "singlepic" src="{{photo.url}}">
+            <figcaption> caption </figcaption>
+            </figure>
           {% endfor %}
         </div>
       </div>
