@@ -42,7 +42,8 @@
                 <p class="photogroup-name"> {{group.group_name}} </p>
                 <p class="photogroup-description"> {{group.description}}</p>
                 <p class="photogroup-creator"> Created by: {{group.created_by}}</p>
-                <p class="photogroup-link"> <a id = "viewstuff" href="{{group.url}}"> View Group </a> </p>
+                <p class="photogroup-link"> <a id = "viewstuff"
+                  href="/newsfeed/view?group_id={{group.key.id()}}"> View Group </a> </p>
               </div>
             </div>
             {% endfor %}
