@@ -194,6 +194,13 @@ def add_url_to_photogroup(new_photo_group):
     temp.url = group_url
     return temp
 
+class AboutHandler(webapp2.RequestHandler):
+    def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
+        about = jinja2_environment.get_template('templates/about.html')
+        self.response.write(about.render())
+
 def get_user_model():
     current_user = users.get_current_user()
     user_model_list = User.query().fetch()
@@ -227,5 +234,6 @@ app = webapp2.WSGIApplication([
     ('/view_photo/([^/]+)', ViewPhotoHandler),
     ('/test', TestHandler),
     ('/create_group', CreateGroupHandler),
-    ('/search', GroupSearchHandler)
+    ('/search', GroupSearchHandler),
+    ('/about', AboutHandler)
 ], debug=True)
