@@ -32,6 +32,7 @@ class PhotoGroup(ndb.Model):
     photo_links = ndb.StringProperty(repeated=True)
     photos = ndb.StructuredProperty(Photo, repeated=True)
     description = ndb.StringProperty(required=False)
+    url = ndb.StringProperty()
 
 class User(ndb.Model):
     user = ndb.UserProperty()
@@ -61,7 +62,6 @@ class NewsfeedHandler(webapp2.RequestHandler):
         template = jinja2_environment.get_template('templates/newsfeed.html')
         user = users.get_current_user()
         if not user:
-            logging.info("DOES IT GO IN HERE?")
             self.redirect('/')
         else:
             greeting = ('%s! (<a href="%s">sign out</a>)' %
@@ -71,7 +71,6 @@ class NewsfeedHandler(webapp2.RequestHandler):
             # and add it into datastore.
             current_user = get_user_model()
             photo_group_data = get_users_photo_groups(current_user)
-            logging.info(photo_group_data)
             template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
             self.response.write(template.render(template_vars))
 
@@ -89,7 +88,13 @@ class CreateGroupHandler(webapp2.RequestHandler):
         description = self.request.get("description")
         type = True if type.lower() == "public" else False
         user = users.get_current_user()
-        new_photo_group = PhotoGroup(group_name = name, is_group_public=type, description=description).put()
+        new_photo_group = PhotoGroup(group_name = name, is_group_public=type, description=description)
+        new_photo_group = new_photo_group.put()
+        temp_id = new_photo_group.id()
+        temp = PhotoGroup.get_by_id(temp_id)
+        group_url = "/newsfeed/view?group_id=" + str(temp_id)
+        temp.url = group_url
+        new_photo_group = temp.put()
         current_user_model = get_user_model()
         current_user_model.users_photo_group_keys += [new_photo_group]
         current_user_model.put()
