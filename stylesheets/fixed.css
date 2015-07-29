@@ -58,6 +58,13 @@
     height: 6%;
 }
 
+<<<<<<< HEAD
+#search {
+  margin-left: 55%;
+  float: right;
+}
+=======
+>>>>>>> c67310d0beb1c28b1e4728f4b4f0e943ff3877da
 
 #footer {
     position: fixed;
