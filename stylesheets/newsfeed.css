@@ -98,7 +98,9 @@ p {
   align-items: center;
   width: 10%;
 }
-
+span {
+  padding: .3vh;
+}
 .groups{
 
   box-sizing: border-box;
