@@ -1,7 +1,44 @@
-body h1 {
-  float: right;
-  font-family: 'Raleway';
+.groupfeed {
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: flex-start;
+  margin: 0vh;
+  column-count: 2;
 }
-.photos {
+.section {
+  display: flex;
+  background: radial-gradient(circle closest-side at 50% 50%, white, #D3F2F1);
+  flex-direction: column;
+  align-self: stretch;
+}
+#columnforsidebar {
+  overflow: scroll;
+  background-color: #BEEDE7;
+  flex-direction: column;
+  text-align: center;
+  padding: 1vw;
+  margin-bottom: 4vh;
+}
+
+.allpics {
+  overflow: scroll;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: space-around;
+  align-items: center;
+  flex: 1;
+  margin-left: 4%;
+  margin-right: 4%;
+  }
+
+#singlepic {
+  background-color: white;
   height: 300px;
+
 }
