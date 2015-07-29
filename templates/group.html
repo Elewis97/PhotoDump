@@ -5,25 +5,32 @@
     <title> PhotoDump </title>
     <link rel = "stylesheet" type = "text/css" href="../stylesheets/welcome.css">
     <link rel = "stylesheet" type = "text/css" href="/stylesheets/group.css">
-    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'
+     type='text/css'>
 </head>
 
 <body>
-  <div class = "groupfeed">
-    <div class = "section">
-      <div id = "columnforsidebar">
+    <div class = "groupfeed">
+
+      <div id = "leftsidebar">
+
         <h1 id = "groupname"> Group name: {{group.group_name}} </h1>
           <form action="/upload" method="POST">
             <input type="hidden" name="group_id" value="{{group.key.id()}}">
             <input type="submit" value="Upload photos!">
           </form>
+
       </div>
 
-        {% for photo in group.photos %}
-          <img id = "singlepic" src="{{photo.url}}">
-        {% endfor %}
+      <div id = "rightsidebar">
+        <div id = "allpics">
+          {% for photo in group.photos %}
+            <img id = "singlepic" src="{{photo.url}}">
+          {% endfor %}
+        </div>
+      </div>
     </div>
-  </div>
+
 </body>
 
 </html>
