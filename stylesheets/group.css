@@ -13,6 +13,7 @@
   width: auto;
   backface-visibility: hidden;
   will-change: overflow;
+
 }
 
 #leftsidebar {
@@ -23,6 +24,7 @@
   margin-bottom: 4vh;
   width: 20%;
   height: 100%;
+
 }
 
 #rightsidebar {
@@ -37,6 +39,7 @@
 
 }
 #allpics {
+  padding-top: 2vh;
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 4vh;
@@ -44,7 +47,7 @@
 #singlepic {
   background-color: white;
   height: 300px;
-  
+
   text-align: center;
   display: flex;
   flex-direction: column;
