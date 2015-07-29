@@ -64,34 +64,30 @@ class NewsfeedHandler(webapp2.RequestHandler):
         # a model in datastore. If not, then create a User model for the current_user
         # and add it into datastore.
         current_user = get_user_model()
-        logging.info(current_user)
-        logging.info(current_user.user.nickname())
+        photo_group_data = get_users_photo_groups(current_user)
+        logging.info(photo_group_data)
         greeting = "hello"
-        template_vars = {"photo_group_data" : [], "greeting" : greeting}
+        template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
         self.response.write(template.render(template_vars))
 
 #This handler is needed in order to create a group.
 #NEEDED FOR TESTING PURPOSES
 class CreateGroupHandler(webapp2.RequestHandler):
-    def post(self):
+    def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
         template = jinja2_environment.get_template('templates/creategroup.html')
+        self.response.write(template.render())
+    def post(self):
         name = self.request.get("group_name")
         type = self.request.get("type")
         description = self.request.get("description")
         type = True if type.lower() == "public" else False
         user = users.get_current_user()
-        new_group = PhotoGroup(group_name = name, is_group_public=type, description=description)
-        photo_group = new_group.put()
-        logging.info(photo_group)
-        current_user = users.get_current_user()
-        user_list = User.query().fetch()
-        for user in user_list:
-            if user.user == current_user:
-                logging.info("WENT IN HERE")
-                user.photo_group_keys += [photo_group]
-                user.put()
-                break
-        logging.info(self.request)
+        new_photo_group = PhotoGroup(group_name = name, is_group_public=type, description=description).put()
+        current_user_model = get_user_model()
+        current_user_model.photo_group_keys += [new_photo_group]
+        current_user_model.put()
         self.redirect("/newsfeed")
 
 class GroupSearchHandler(webapp2.RequestHandler):
@@ -179,12 +175,9 @@ class ViewAllGroupsHandler(webapp2.RequestHandler):
 #THIS HANDLER IS FOR KIET TO TEST STUFF
 class TestHandler(webapp2.RequestHandler):
     def get(self):
-        user = User.get_by_id(6244676289953792)
-        for photo_groups in user.photo_groups:
-            self.response.write(photo_groups.group_name)
-            self.response.write("</br>")
-        #self.response.write(group.photos)
-        #self.response.write("DISLIKES: " + str(group.dislikes))
+        current_user = get_user_model()
+        users_photo_groups = get_users_photo_groups(current_user)
+        self.response.write(users_photo_groups)
 
 def get_user_model():
     current_user = users.get_current_user()
@@ -195,6 +188,16 @@ def get_user_model():
     new_user_model = User(user=current_user)
     new_user_model.put()
     return new_user_model
+
+def get_users_photo_groups(current_user):
+    users_photo_groups = []
+    photo_group_keys = current_user.photo_group_keys
+    logging.info(photo_group_keys)
+    for photo_group in photo_group_keys:
+        id = photo_group.id()
+        group = PhotoGroup.get_by_id(id)
+        users_photo_groups += [group]
+    return users_photo_groups
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
