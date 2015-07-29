@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
     <title> PhotoDump </title>
     <link rel = "stylesheet" type = "text/css" href="../stylesheets/welcome.css">
     <link rel = "stylesheet" type = "text/css" href="/stylesheets/group.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-  </head>
+</head>
 
-  <body>
+<body>
+  <div class = "groupfeed">
+    <div class = "section">
+      <div id = "columnforsidebar">
+        <h1> Photo Group: {{group.group_name}} </h1>
+          <form action="/upload" method="POST">
+            <input type="hidden" name="group_id" value="{{group.key.id()}}">
+            <input type="submit" value="Upload photos!">
+          </form>
+      </div>
 
-    <h1> Photo Group: {{group.group_name}} </h1>
-    <form action="/upload" method="POST">
-      <input type="hidden" name="group_id" value="{{group.key.id()}}">
-      <input type="submit" value="upload pictures">
-    </form>
-    {% for photo in group.photos %}
-      <img class="photos" src="{{photo.url}}">
-    {% endfor %}
-  </body>
+      <div class = "allpics">
+        {% for photo in group.photos %}
+          <img id = "singlepic" src="{{photo.url}}">
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</body>
 
 </html>
