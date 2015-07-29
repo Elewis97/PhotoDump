@@ -80,7 +80,7 @@ h2 {
 
 }
 
-p {
+.newsfeed-groups {
   display: flex;
   flex-direction: row;
   font-family: 'Merriweather';
