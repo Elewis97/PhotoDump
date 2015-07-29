@@ -63,20 +63,12 @@ class NewsfeedHandler(webapp2.RequestHandler):
         # BACKEND: Looks through the user model to see if the current_user has
         # a model in datastore. If not, then create a User model for the current_user
         # and add it into datastore.
-        current_user = users.get_current_user()
-        temp_user_model = User(user=current_user)
-        user_list = User.query().fetch()
-        added = False
-        for user in user_list:
-            if user.user == current_user:
-                added = True
-                current_user_model = user
-        if not added:
-            temp_user_model.put()
-            current_user_model = temp_user_model
 
-        greeting = current_user.nickname()
-        template_vars = {"photo_group_data" : current_user_model.photo_groups, "greeting" : greeting}
+        current_user = get_user_model()
+        logging.info(current_user)
+        logging.info(current_user.user.nickname())
+        greeting = current_user.user.nickname()
+        template_vars = {"photo_group_data" : [], "greeting" : greeting}
         self.response.write(template.render(template_vars))
 
 #This handler is needed in order to create a group.
@@ -191,18 +183,20 @@ class ViewAllGroupsHandler(webapp2.RequestHandler):
 #THIS HANDLER IS FOR KIET TO TEST STUFF
 class TestHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write("HELLO WORLD")
         user = User.get_by_id(6244676289953792)
-        self.response.write(user)
-        self.response.write("</br>")
-        self.response.write(user.photo_groups)
-        self.response.write("</br>")
         for photo_groups in user.photo_groups:
             self.response.write(photo_groups.group_name)
             self.response.write("</br>")
         #self.response.write(group.photos)
         #self.response.write("DISLIKES: " + str(group.dislikes))
 
+def get_user_model():
+    current_user = users.get_current_user()
+    user_model_list = User.query().fetch()
+    for temp_user_model in user_model_list:
+        if temp_user_model.user == current_user:
+            return temp_user_model
+    return "none"
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
