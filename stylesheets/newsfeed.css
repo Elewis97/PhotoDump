@@ -1,11 +1,13 @@
 /* holy grail is the body */
 body {
+  overflow: scroll;
   background-color: #E0F2F1;
   margin: 0;
   font-family: 'Raleway', sans-serif;
   padding-top: 10vh;
 }
 .newsfeed {
+  overflow: scroll;
   display: flex;
   align-self: stretch;
   flex-direction: column;
@@ -13,11 +15,11 @@ body {
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow: scroll;
   margin: 0vmax;
 }
 
 .welcomeSidebar {
+  overflow: scroll;
   display: flex;
   background-color: #BEEDE7;
   height: 100%;
@@ -29,19 +31,22 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  padding: 1vw;
 
 }
 
 #welcometext {
-  margin-left: 2vw;
-  margin-right: 2vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
   text-align: left;
-  text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
-  2px 1px 1px #ccc;
+  text-shadow: .25vh 0vh .25vh #ccc, 0vh .25vh .25vh #eee,
+  .5vh .25vh .25vh #ccc;
+  font-size: 3vh;
   word-wrap: break-word;
 }
 
 #section {
+  overflow: scroll;
   display: flex;
   background: radial-gradient(circle closest-side at 50% 50%, white, #D3F2F1);
   flex-direction: column;
@@ -50,11 +55,12 @@ body {
 
 #newsfeedtitle {
   margin-left: 3%;
-  text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
-  2px 1px 1px #ccc;
+  text-shadow: .25vh 0vh .25vh #ccc, 0vh .25vh .25vh #eee,
+  .5vh .25vh .25vh #ccc;
 }
 
 .feed{
+  overflow: scroll;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -93,17 +99,12 @@ p {
   width: 10%;
 }
 
-h1 {
-  text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
-  2px 1px 1px #ccc, 1px 2px 1px #eee,
-  3px 2px 1px #ccc;
-  font-size: 2.3em;
-}
-
 .groups{
+
   box-sizing: border-box;
-  border: 2px solid white;
-  margin: 5px;
+  background-color: white;
+  margin: .1vw;
+  padding: .2vw;
 }
 
 /*.content {
