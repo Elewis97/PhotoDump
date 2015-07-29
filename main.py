@@ -75,16 +75,6 @@ class NewsfeedHandler(webapp2.RequestHandler):
         template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
         self.response.write(template.render(template_vars))
 
-class GroupfeedHandler(webapp2.RequestHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        template = jinja2_environment.get_template('templates/groupfeed.html')
-        query = PhotoGroup.query()
-        photo_group_data = query.fetch()
-        template_vars = {"photo_group_data" : photo_group_data} #PhotoGroup model list
-        self.response.write(template.render(template_vars))
-
 #This handler is needed in order to create a group.
 #NEEDED FOR TESTING PURPOSES
 class CreateGroupHandler(webapp2.RequestHandler):
@@ -100,8 +90,15 @@ class CreateGroupHandler(webapp2.RequestHandler):
         description = self.request.get("description")
         type = True if type.lower() == "public" else False
         user = users.get_current_user()
-        new_group = PhotoGroup(group_name = name, is_group_public=type, description=description, )
-        new_group.put()
+        new_group = PhotoGroup(group_name = name, is_group_public=type, description=description)
+        current_user = users.get_current_user()
+        user_list = User.query().fetch()
+        for user in user_list:
+            if user.user == current_user:
+                logging.info("WENT IN HERE")
+                user.photo_groups += [new_group]
+                user.put()
+                break
         logging.info(self.request)
         self.redirect("/newsfeed")
 
@@ -146,15 +143,8 @@ class TestHandler(webapp2.RequestHandler):
     def get(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
-        group = PhotoGroup.get_by_id(4962095976153088)
-        group.dislikes = 123
-        photo1 = Photo.get_by_id(5525045929574400)
-        photo2 = Photo.get_by_id(6650945836417024)
-        #self.response.write(group.photos)
-        group.photos = [photo1, photo2]
-        for photos in group.photos:
-            self.response.write(photos.url)
-            self.response.write()
+        user = User.get_by_id(6244676289953792)
+        self.response.write(user)
         #self.response.write(group.photos)
         #self.response.write("DISLIKES: " + str(group.dislikes))
 
@@ -191,23 +181,6 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         except:
             self.response.write("failure")
 
-#THIS HANDLER IS FOR KIET TO TEST STUFF
-class TestHandler(webapp2.RequestHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        group = PhotoGroup.get_by_id(4962095976153088)
-        group.dislikes = 123
-        photo1 = Photo.get_by_id(5525045929574400)
-        photo2 = Photo.get_by_id(6650945836417024)
-        #self.response.write(group.photos)
-        group.photos = [photo1, photo2]
-        for photos in group.photos:
-            self.response.write(photos.url)
-            self.response.write()
-        #self.response.write(group.photos)
-        #self.response.write("DISLIKES: " + str(group.dislikes))
-
 class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
     def get(self, photo_key):
         fixed = jinja2_environment.get_template('templates/fixed.html')
@@ -217,6 +190,18 @@ class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
         else:
             self.send_blob(photo_key)
 
+#This handler lets me look at all the groups that have been stored
+#in datastore. Used for debugging purposes.
+class ViewAllGroupsHandler(webapp2.RequestHandler):
+    def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
+        template = jinja2_environment.get_template('templates/groupfeed.html')
+        query = PhotoGroup.query()
+        photo_group_data = query.fetch()
+        template_vars = {"photo_group_data" : photo_group_data} #PhotoGroup model list
+        self.response.write(template.render(template_vars))
+
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -224,8 +209,8 @@ jinja2_environment = jinja2.Environment(loader=
 app = webapp2.WSGIApplication([
     ('/', WelcomeHandler),
     ('/newsfeed', NewsfeedHandler),
-    ('/groupfeed', GroupfeedHandler),
     ('/newsfeed/view', ViewGroupHandler),
+    ('/allgroups', GroupfeedHandler)
     ('/upload', UploadHandler),
     ('/uploaded', FinishedUploadHandler),
     ('/view_photo/([^/]+)', ViewPhotoHandler),
