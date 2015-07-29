@@ -13,6 +13,7 @@
 <!-- the sections on the newsfeed -->
   <div class = "newsfeed">
     <div class="welcomeSidebar">
+
       <div id = "columnforsidebar">
         <h3 id = "welcometext"> Welcome {{greeting}}! </h3>
         <form action="/create_group">
@@ -25,7 +26,6 @@
             <a href="/newsfeed/view?group_id={{group.key.id()}}"> View group </a>
           </div>
         {% endfor %}
-
       </div>
 
       <div id="section">
