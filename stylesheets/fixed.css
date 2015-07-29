@@ -1,6 +1,8 @@
 body {
   padding-top: 13vh;
+  margin: 0;
 }
+
 #header-container {
   overflow-x: auto;
   position: fixed;
