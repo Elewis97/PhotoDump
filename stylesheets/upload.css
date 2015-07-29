@@ -3,7 +3,16 @@ body {
     background: radial-gradient(circle closest-side at 50% 50%, white, #D3F2F1);
     margin: 0;
     padding-top: 12vh;
+    font-family: 'Raleway';
 }
 .uploadtext {
-  padding-top: 3vh;
+  padding-top: 35vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

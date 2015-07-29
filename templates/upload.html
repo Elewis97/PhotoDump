@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    
+
     <link rel = "stylesheet" type = "text/css" href="../stylesheets/upload.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
   </head>
@@ -10,6 +10,7 @@
 
     <div class = "uploadtext">
       Select photos to upload!
+    </div>
       <form method="POST" action="{{ upload_url }}" enctype="multipart/form-data">
         <input type="hidden" name="group_id" value="{{group.key.id()}}">
         <input type="file" name="file" value="file" multiple>
