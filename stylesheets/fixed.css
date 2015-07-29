@@ -3,18 +3,19 @@
   top: 0;
   width: 100%;
   height: 10vh;
+  padding-top: 2vh;
+  padding-bottom: 1vh;
   background: #00BFA5;
 }
 
 #logo-text {
   left: 0;
+  margin-left: 2.5vh;
   color: white;
   text-decoration: none;
   font-family: 'Raleway';
   font-size: 7vh;
   text-shadow:  0.25vh 0.25vh 0vh #ccc, 0.75vh 0.75vh 1.5vh black;
-  margin-left: 1vh;
-  margin-top: 1vh;
 }
 
 #logo-text:hover {
@@ -24,9 +25,9 @@
 #logo-pic {
   position: absolute;
   margin-left: 1vw;
-  top: 1vh;
+  top: 2vh;
   height: 8vh;
-  text-shadow:  1px 1px 0px #ccc, 3px 3px 8px black;
+
 }
 
 #search {
@@ -45,7 +46,7 @@
 
 #searchbox {
   color: teal;
-  background-color: #B2DFDB;
+  background-color: white;
   font-size: 3vh;
   height: 7vh;
   width: 20vw;
@@ -66,11 +67,12 @@
 
 
 #footer {
-    position: fixed;
-    bottom: 0;
+    position: absolute;
+    bottom: 0vh;
     font-family: 'Raleway';
     color:white;
-    padding:.7%;
+    font-size: 2.5vh;
+    padding:.5%;
     margin: -.4%;
     text-align:center;
     width: 100%;
