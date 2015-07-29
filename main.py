@@ -154,15 +154,6 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         except:
             self.response.write("failure")
 
-class ViewPhotoHandler(blobstore_handlers.BlobstoreDownloadHandler):
-    def get(self, photo_key):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        if not blobstore.get(photo_key):
-            self.error(404)
-        else:
-            self.send_blob(photo_key)
-
 #This handler lets me look at all the groups that have been stored
 #in datastore. Used for debugging purposes.
 class ViewAllGroupsHandler(webapp2.RequestHandler):
@@ -231,7 +222,7 @@ app = webapp2.WSGIApplication([
     ('/allgroups', ViewAllGroupsHandler),
     ('/upload', UploadHandler),
     ('/uploaded', FinishedUploadHandler),
-    ('/view_photo/([^/]+)', ViewPhotoHandler),
+    ('/upload/edit', EditUploadsHandler),
     ('/test', TestHandler),
     ('/create_group', CreateGroupHandler),
     ('/search', GroupSearchHandler),
