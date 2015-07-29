@@ -13,12 +13,12 @@
     <div class="welcomeSidebar">
       <div id = "columnforsidebar">
         <h3 id = "welcometext"> Welcome {{greeting}}! </h3>
-        Groups
+
         <!-- need to link CreateGroupHandler to this button-->
         <form action="/create_group">
           <input type="submit" value="Make a new group!">
         </form>
-
+        <span>Groups You've Created</span>
         {% for group in photo_group_data %}
           <div class="groups">
             <div class="group_name"> {{group.group_name}} </div>

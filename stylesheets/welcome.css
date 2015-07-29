@@ -10,12 +10,18 @@ h2 {
     2px 1px 1px #ccc, 1px 2px 1px #eee,
     3px 2px 1px #ccc, 2px 3px 1px #eee,
     4px 3px 1px #ccc;
-    font-size: 4em;
+    font-size: 10vh;
 }
-
+p {
+  font-size: 2.5vh;
+}
 #pic1 {
     margin-top: 2%;
     padding-left: 1%;
+}
+#searchbox2 {
+  height: 3vh;
+  width: 10vw;
 }
 
 #welcomestuff {
