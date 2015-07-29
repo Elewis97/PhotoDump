@@ -154,6 +154,10 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
         except:
             self.response.write("failure")
 
+class EditUploadsHandler(webapp2.RequestHandler):
+    def get(self):
+        self.response.write("HELLO WORLD")
+
 #This handler lets me look at all the groups that have been stored
 #in datastore. Used for debugging purposes.
 class ViewAllGroupsHandler(webapp2.RequestHandler):
