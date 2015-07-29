@@ -138,17 +138,6 @@ class SuccessHandler(webapp2.RequestHandler):
         template = jinja2_environment.get_template('templates/success.html')
         self.response.write(template.render())
 
-#THIS HANDLER IS FOR KIET TO TEST STUFF
-class TestHandler(webapp2.RequestHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        user = User.get_by_id(6244676289953792)
-        self.response.write(user)
-        #self.response.write(group.photos)
-        #self.response.write("DISLIKES: " + str(group.dislikes))
-
-
 #This is the upload handler it deals with uploading photos.
 #The photo will be uploaded to imgur using the imgur upload API
 #The imgur API will then return a link and the link will be stored in a Photo class
@@ -202,6 +191,15 @@ class ViewAllGroupsHandler(webapp2.RequestHandler):
         template_vars = {"photo_group_data" : photo_group_data} #PhotoGroup model list
         self.response.write(template.render(template_vars))
 
+#THIS HANDLER IS FOR KIET TO TEST STUFF
+class TestHandler(webapp2.RequestHandler):
+    def get(self):
+        self.response.write("HELLO WORLD")
+        user = User.get_by_id(6244676289953792)
+        self.response.write(user)
+        #self.response.write(group.photos)
+        #self.response.write("DISLIKES: " + str(group.dislikes))
+
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -210,7 +208,7 @@ app = webapp2.WSGIApplication([
     ('/', WelcomeHandler),
     ('/newsfeed', NewsfeedHandler),
     ('/newsfeed/view', ViewGroupHandler),
-    ('/allgroups', GroupfeedHandler)
+    ('/allgroups', ViewAllGroupsHandler),
     ('/upload', UploadHandler),
     ('/uploaded', FinishedUploadHandler),
     ('/view_photo/([^/]+)', ViewPhotoHandler),
