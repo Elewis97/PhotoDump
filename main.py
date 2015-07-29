@@ -35,7 +35,7 @@ class PhotoGroup(ndb.Model):
 
 class User(ndb.Model):
     user = ndb.UserProperty()
-    photo_groups = ndb.LocalStructuredProperty(PhotoGroup, repeated=True)
+    photo_group_keys = ndb.KeyProperty(repeated=True)
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
@@ -63,22 +63,16 @@ class NewsfeedHandler(webapp2.RequestHandler):
         # BACKEND: Looks through the user model to see if the current_user has
         # a model in datastore. If not, then create a User model for the current_user
         # and add it into datastore.
-
         current_user = get_user_model()
         logging.info(current_user)
         logging.info(current_user.user.nickname())
-        greeting = current_user.user.nickname()
+        greeting = "hello"
         template_vars = {"photo_group_data" : [], "greeting" : greeting}
         self.response.write(template.render(template_vars))
 
 #This handler is needed in order to create a group.
 #NEEDED FOR TESTING PURPOSES
 class CreateGroupHandler(webapp2.RequestHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        template = jinja2_environment.get_template('templates/creategroup.html')
-        self.response.write(template.render())
     def post(self):
         template = jinja2_environment.get_template('templates/creategroup.html')
         name = self.request.get("group_name")
@@ -87,12 +81,14 @@ class CreateGroupHandler(webapp2.RequestHandler):
         type = True if type.lower() == "public" else False
         user = users.get_current_user()
         new_group = PhotoGroup(group_name = name, is_group_public=type, description=description)
+        photo_group = new_group.put()
+        logging.info(photo_group)
         current_user = users.get_current_user()
         user_list = User.query().fetch()
         for user in user_list:
             if user.user == current_user:
                 logging.info("WENT IN HERE")
-                user.photo_groups += [new_group]
+                user.photo_group_keys += [photo_group]
                 user.put()
                 break
         logging.info(self.request)
@@ -196,7 +192,9 @@ def get_user_model():
     for temp_user_model in user_model_list:
         if temp_user_model.user == current_user:
             return temp_user_model
-    return "none"
+    new_user_model = User(user=current_user)
+    new_user_model.put()
+    return new_user_model
 
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
