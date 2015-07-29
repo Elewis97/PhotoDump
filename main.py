@@ -100,9 +100,12 @@ class CreateGroupHandler(webapp2.RequestHandler):
         type = self.request.get("type")
         description = self.request.get("description")
         type = True if type.lower() == "public" else False
-        user = users.get_current_user()
-        new_group = PhotoGroup(group_name = name, is_group_public=type, description=description, )
-        new_group.put()
+        new_group = PhotoGroup(group_name = name, is_group_public=type, description=description)
+        current_user = users.get_current_user()
+        user_list = User.query().fetch()
+        for user in user_list:
+            if user.user == current_user:
+                user.photo_groups += [new_group]
         logging.info(self.request)
         self.redirect("/newsfeed")
 
