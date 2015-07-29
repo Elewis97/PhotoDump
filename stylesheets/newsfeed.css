@@ -1,5 +1,6 @@
 /* holy grail is the body */
 body {
+  overflow-x: hidden;
   overflow: scroll;
   background-color: #E0F2F1;
   margin: 0;
@@ -7,7 +8,8 @@ body {
   padding-top: 10vh;
 }
 .newsfeed {
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow: hidden;
   display: flex;
   align-self: stretch;
   flex-direction: column;
@@ -24,6 +26,8 @@ body {
   background-color: #BEEDE7;
   height: 100%;
   width: auto;
+  backface-visibility: hidden;
+  will-change: overflow;
 }
 
 #columnforsidebar {
@@ -32,12 +36,11 @@ body {
   text-align: center;
   padding: 1vw;
   margin-bottom: 4vh;
-  width: 35%;
+  width: 15%;
 }
 
 #welcometext {
-  margin-left: .5vw;
-  text-align: left;
+  text-align: center;
   text-shadow: .25vh 0vh .25vh #ccc, 0vh .25vh .25vh #eee,
   .5vh .25vh .25vh #ccc;
   font-size: 3vh;
@@ -47,11 +50,13 @@ h2 {
   padding-top: 2vh;
 }
 #section {
+  overflow-x: auto;
   overflow: scroll;
   display: flex;
   background: radial-gradient(circle closest-side at 50% 50%, white, #D3F2F1);
   flex-direction: column;
   align-self: stretch;
+  width:100%;
 }
 
 #newsfeedtitle {
@@ -61,17 +66,18 @@ h2 {
   .5vh .25vh .25vh #ccc;
 }
 
-.feed{
+.feed {
   overflow: scroll;
   text-align: center;
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-content: space-around;
-  align-items: center;
+  align-items: flex-end;
   flex: 1;
   margin-left: 4%;
   margin-right: 4%;
+
 }
 
 p {
@@ -81,32 +87,38 @@ p {
   text-align: right;
   background-color: white;
   border-radius: 20vh;
-  padding-left: 4%;
-  padding-right: 1%;
+  padding-left: 5vw;
+  padding-right: 2vw;
   padding-top: 2%;
   padding-bottom: 2%;
   flex-wrap: nowrap;
   justify-content: space-around;
   align-content: flex-end;
   align-items: center;
-  font-size: 2.5vh;
+  font-size: 2vh;
+  width: 85%;
 }
 
-.test {
+.testpic {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-around;
   align-content: flex-end;
-  align-items: center;
-  width: 10%;
+  align-items: flex-start;
+  width:50%;
+  padding-right: .5vw;
 }
 span {
   padding: .3vh;
   font-size: 2vh;
 }
-form {
-  font-size: 2vh;
+
+input[type=submit] {
+    width: 12vw;
+    height: 3vh;
+    font-size: 1.5vh;
+    font-size: 1vw;
 }
 .groups{
   box-sizing: border-box;
