@@ -1,19 +1,4 @@
-#!/usr/bin/env python
-#
-# Copyright 2007 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+
 import webapp2
 import jinja2
 import os
@@ -76,11 +61,11 @@ class NewsfeedHandler(webapp2.RequestHandler):
         photo_group_data = query.fetch() #PhotoGroup model list
         template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
         template = jinja2_environment.get_template('templates/newsfeed.html')
-<<<<<<< HEAD
+
         self.response.write(template.render())
-=======
+
         self.response.write(template.render(template_vars))
->>>>>>> c67310d0beb1c28b1e4728f4b4f0e943ff3877da
+
 
 class GroupfeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -138,8 +123,7 @@ class ViewGroupHandler(webapp2.RequestHandler):
         template_vars = { "group" : group}
         template = jinja2_environment.get_template('templates/group.html')
         self.response.write(template.render(template_vars))
-<<<<<<< HEAD
-=======
+
 
 # Tells the user when they successfully create a group.
 class SuccessHandler(webapp2.RequestHandler):
@@ -165,7 +149,7 @@ class TestHandler(webapp2.RequestHandler):
             self.response.write()
         #self.response.write(group.photos)
         #self.response.write("DISLIKES: " + str(group.dislikes))
->>>>>>> c67310d0beb1c28b1e4728f4b4f0e943ff3877da
+
 
 #This is the upload handler it deals with uploading photos.
 #The photo will be uploaded to imgur using the imgur upload API
@@ -192,7 +176,7 @@ class FinishedUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
                 blob_key = upload.key()
                 serving_url = images.get_serving_url(blob_key)
                 photo = Photo(blob_key=blob_key, url=serving_url)
-<<<<<<< HEAD
+
                 group.photo += [photo]
                 self.response.write("<img src='"+ serving_url+"' >")
                 self.response.write("<br/>")
@@ -236,7 +220,7 @@ class SuccessHandler(webapp2.RequestHandler):
         template = jinja2_environment.get_template('templates/success.html')
         self.response.write(template.render())
 
-=======
+
                 group.photos += [photo]
                 group.put()
                 logging.info("THIS WORKED RIGHT HERE")
@@ -244,7 +228,7 @@ class SuccessHandler(webapp2.RequestHandler):
         except:
             self.response.write("failure")
 
->>>>>>> c67310d0beb1c28b1e4728f4b4f0e943ff3877da
+
 jinja2_environment = jinja2.Environment(loader=
     jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
