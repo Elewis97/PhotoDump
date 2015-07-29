@@ -37,19 +37,32 @@
   margin: 0;
 }
 
+#search-inner {
+  margin-top: 1.5vh;
+  width: 25vw;
+}
+
+
 #searchbox {
   color: teal;
-  height: inherit;
-  font-size: 2vw;
+  background-color: #B2DFDB;
+  font-size: 3vh;
+  height: 7vh;
   width: 20vw;
+  border: 0;
+  border-radius: 20vh;
   box-sizing: border-box;
+  float: left;
 }
 
 
 #submit-button {
-  height: 10vh;
-  width: 10vw;
+  background-color: #E0F2F1;
+  height: 7vh;
+  font-size: 3vh;
+  width: 5vw;
   border: 0;
+  float: left;
   padding: 0;
 }
 
@@ -57,6 +70,7 @@
     margin-top: 1.5%;
     height: 6%;
 }
+
 
 #search {
   margin-left: 55%;
