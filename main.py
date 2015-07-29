@@ -63,9 +63,9 @@ class NewsfeedHandler(webapp2.RequestHandler):
         # BACKEND: Looks through the user model to see if the current_user has
         # a model in datastore. If not, then create a User model for the current_user
         # and add it into datastore.
-        current_user = users.get_current_user()
+
         temp_user_model = User(user=current_user)
-        user_list = User.query().fetch()
+
         added = False
         for user in user_list:
             if user.user == current_user:
@@ -74,6 +74,12 @@ class NewsfeedHandler(webapp2.RequestHandler):
         if not added:
             temp_user_model.put()
             current_user_model = temp_user_model
+
+        def get_user_model():
+            current_user = users.get_current_user()
+            user_model_list = User.query().fetch()
+            
+            return current_user_model
 
         greeting = current_user.nickname()
         template_vars = {"photo_group_data" : current_user_model.photo_groups, "greeting" : greeting}
@@ -191,17 +197,13 @@ class ViewAllGroupsHandler(webapp2.RequestHandler):
 #THIS HANDLER IS FOR KIET TO TEST STUFF
 class TestHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write("HELLO WORLD")
         user = User.get_by_id(6244676289953792)
-        self.response.write(user)
-        self.response.write("</br>")
-        self.response.write(user.photo_groups)
-        self.response.write("</br>")
         for photo_groups in user.photo_groups:
             self.response.write(photo_groups.group_name)
             self.response.write("</br>")
         #self.response.write(group.photos)
         #self.response.write("DISLIKES: " + str(group.dislikes))
+
 
 
 jinja2_environment = jinja2.Environment(loader=
