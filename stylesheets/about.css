@@ -26,42 +26,23 @@ p {
 
 #Summary {
   text-align: center;
-  /*color: white;*/
+  padding-left: 10%;
+  padding-right: 10%;
+
 
 }
 
 .bios{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: flex-end;
-  align-content: space-around;
+    display: flex;
+    justify-content: space-between;
 }
 
-#Stephanie {
-  background-color: #009688;
-  color: white;
-  flex-grow: 1;
+.people {
+  background-color: #4DB6AC;
+  width: 32%;
+  padding: 10px;
   margin: 1%;
-  flex-grow: 1;
   text-align: center;
-}
+  border-radius: 25px;
 
-#Eleanor {
-  background-color: #009688;
-  color: white;
-  flex-grow: 1;
-  margin: 1%;
-  flex-grow: 1;
-  text-align: center;
-}
-
-#Kiet {
-  background-color: #009688;
-  color: white;
-  flex-grow: 1;
-  margin: 1%;
-  flex-grow: 1;
-  text-align: center;
 }
