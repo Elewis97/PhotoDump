@@ -11,25 +11,7 @@
 </head>
 
 <body>
-    <div class = "groupfeed">
-
-      <h1 id = "groupname"> Group name: {{group.group_name}} </h1>
-        <form action="/upload" method="POST">
-          <input type="hidden" name="group_id" value="{{group.key.id()}}">
-          <input type="submit" value="Upload photos!"></input>
-        </form>
-
-      <div id = "rightsidebar">
-        <div id = "allpics">
-          {% for photo in group.photos %}
-            <figure>
-            <img id = "singlepic" src="{{photo.url}}">
-            <figcaption> user caption datePosted </figcaption>
-            </figure>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
+  TEST
 
 </body>
 
