@@ -6,8 +6,8 @@ form {
   justify-content: center;
   align-content: space-around;
   align-items: center;
-
 }
+
 body {
   background-color: #E0F2F1;
   background: radial-gradient(circle closest-side at 50% 50%, white, #D3F2F1);
