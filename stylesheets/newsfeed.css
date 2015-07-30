@@ -50,6 +50,8 @@ body {
 }
 .info {
   float: right;
+  display: flex;
+  flex-direction: column;
   text-align: right;
   padding-right: 2vw;
   padding-bottom: 1vh;
@@ -89,30 +91,9 @@ h2 {
   background-color: white;
   margin: 2vh;
   justify-content: space-between;
+  flex: 1;
 
 }
-/*.feed {
-  overflow: scroll;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: space-around;
-  align-items: flex-end;
-  flex: 1;
-  margin-left: 4%;
-  margin-right: 4%;
-
-}*/
-
-/*.newsfeed-groups {
-  display: flex;
-  flex-direction: row;
-  font-family: 'Merriweather';
-  width: 100%;
-  margin-top: 5%;
-  margin-bottom: 10%;
-}*/
 
 
 .photogroup-pic {
@@ -122,7 +103,8 @@ h2 {
   justify-content: space-around;
   align-content: flex-end;
   align-items: flex-start;
-  width:35%;
+  width:40%;
+  object-fit: cover;
   margin: 3vh;
   padding-right: .5vw;
   padding-left: .5vw;
@@ -151,6 +133,9 @@ input[type=submit] {
 }
 #noimages {
   font-size: 3vh;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-left: 2vw;
   padding-right: 1.5vw;
 }
 .groups{

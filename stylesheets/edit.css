@@ -1,0 +1,12 @@
+.photo-pic {
+  width: 30vw;
+}
+
+#photo-edit-container {
+  width: 30vw;
+  text-align: center;
+}
+
+.single-photo {
+  margin: 10vh;
+}

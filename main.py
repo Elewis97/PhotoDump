@@ -165,18 +165,43 @@ class EditUploadsHandler(blobstore_handlers.BlobstoreUploadHandler):
             group_id = int(self.request.get("group_id"))
             group = PhotoGroup.get_by_id(group_id)
             upload_list = self.get_uploads()
-            logging.info("THIS WORKED RIGHT HERE")
+            current_upload_photos = []
             for upload in upload_list:
                 logging.info("THIS WORKED RIGHT HERE")
                 blob_key = upload.key()
                 serving_url = images.get_serving_url(blob_key)
                 photo = Photo(blob_key=blob_key, url=serving_url)
                 group.photos += [photo]
+                current_upload_photos += [photo]
                 group.put()
             template = jinja2_environment.get_template('templates/edit.html')
-            self.response.write("Success")
+            template_vars = { "current_upload_photos" : current_upload_photos, "current_group_id" : group_id}
+            self.response.write(template.render(template_vars))
         except:
             self.response.write("failure")
+
+class FinishUploadHandler(webapp2.RequestHandler):
+    def post(self):
+        group_id = int(self.request.get('current_group_id'))
+        group = PhotoGroup.get_by_id(group_id)
+        photos_in_group = group.photos
+        for photo in photos_in_group:
+            blob_key_string = str(photo.blob_key)
+            try:
+                name = self.request.get('name-' + blob_key_string)
+                caption = self.request.get('caption-' + blob_key_string)
+                self.response.write("NAME: " + name)
+                self.response.write("<br/>")
+                self.response.write("CAPTION: " + caption)
+                self.response.write("<br/>")
+                self.response.write("<br/>")
+                if not (name == "" and caption == ""):
+                    photo.name = name
+                    photo.caption = caption
+            except:
+                break
+        group.put()
+        self.redirect("/newsfeed/view?group_id="+str(group_id))
 
 #This handler lets me look at all the groups that have been stored
 #in datastore. Used for debugging purposes.
@@ -201,6 +226,21 @@ class TestHandler(webapp2.RequestHandler):
             self.response.write("<br/>")
             self.response.write("<br/>")
 
+class AboutHandler(webapp2.RequestHandler):
+    def get(self):
+        fixed = jinja2_environment.get_template('templates/fixed.html')
+        self.response.write(fixed.render())
+        about = jinja2_environment.get_template('templates/about.html')
+        self.response.write(about.render())
+
+def get_photo_from_blob(blob_key):
+    photo_groups = PhotoGroup.query().fetch()
+    for photo_group in photo_groups:
+        for photo in photo_group.photos:
+            if photo.blob_key == blob_key:
+                return photo
+    return None
+
 def add_url_to_photogroup(new_photo_group):
     new_photo_group = new_photo_group.put()
     temp_id = new_photo_group.id()
@@ -208,13 +248,6 @@ def add_url_to_photogroup(new_photo_group):
     group_url = "/newsfeed/view?group_id=" + str(temp_id)
     temp.url = group_url
     return temp
-
-class AboutHandler(webapp2.RequestHandler):
-    def get(self):
-        fixed = jinja2_environment.get_template('templates/fixed.html')
-        self.response.write(fixed.render())
-        about = jinja2_environment.get_template('templates/about.html')
-        self.response.write(about.render())
 
 def get_user_model():
     current_user = users.get_current_user()
@@ -263,6 +296,7 @@ app = webapp2.WSGIApplication([
     ('/newsfeed/view', ViewGroupHandler),
     ('/allgroups', ViewAllGroupsHandler),
     ('/upload', UploadHandler),
+    ('/upload/finish', FinishUploadHandler),
     ('/uploaded', FinishedUploadHandler),
     ('/upload/edit', EditUploadsHandler),
     ('/test', TestHandler),

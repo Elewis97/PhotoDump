@@ -4,15 +4,25 @@
 <head>
     <title> PhotoDump </title>
     <link rel = "stylesheet" type = "text/css" href="../stylesheets/welcome.css">
-    <link rel = "stylesheet" type = "text/css" href="/stylesheets/group.css">
-    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'
-     type='text/css'>
-     <script src="lib/jquery.js"></script>
+    <link rel = "stylesheet" type = "text/css" href="/stylesheets/edit.css">
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <script src="lib/jquery.js"></script>
 </head>
 
 <body>
-  TEST
-
+  <form action='/upload/finish' method='POST'>
+    <input type='hidden' name='current_group_id' value='{{current_group_id}}'>
+    <section id='photo-edit-container'>
+    {% for photo in current_upload_photos%}
+      <div class='single-photo'>
+        <input type="text" value='name (optional)' name='name-{{photo.blob_key}}'>
+        <img class='photo-pic' src="{{photo.url}}">
+        <input type="text" value="caption (optional)" name='caption-{{photo.blob_key}}'>
+      </div>
+    {% endfor %}
+    </section>
+    <input type="submit" value='submit'>
+  </form>
 </body>
 
 </html>
