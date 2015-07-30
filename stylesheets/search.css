@@ -15,3 +15,40 @@ h4 {
   margin-bottom: 0vh;
 
 }
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.search {
+  background-color: white;
+  width: 32%;
+  padding: 10px;
+  margin: 1%;
+  text-align: center;
+  border-radius: 25px;
+}
+
+.result {
+  text-decoration: none;
+  color: #000000;
+}
+
+.first-photo {
+  padding: 2%;
+  /*border-style: solid;
+  border-width: 5px;
+  border-color: #E0F2F1;*/
+  background-color: #E0F2F1;
+  border-radius: 25px;
+  
+
+}
+
+.photogroup-pic {
+  width: 40%;
+}
