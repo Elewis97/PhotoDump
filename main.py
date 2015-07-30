@@ -185,10 +185,23 @@ class FinishUploadHandler(webapp2.RequestHandler):
         group_id = int(self.request.get('current_group_id'))
         group = PhotoGroup.get_by_id(group_id)
         photos_in_group = group.photos
-        # for photo in photos_in_group:
-        #     blob_key_string = str(photo.blob_key)
-        #     try:
-        #         name = self.request.get('name-' + blob_key_string)
+        for photo in photos_in_group:
+            blob_key_string = str(photo.blob_key)
+            try:
+                name = self.request.get('name-' + blob_key_string)
+                caption = self.request.get('caption-' + blob_key_string)
+                self.response.write("NAME: " + name)
+                self.response.write("<br/>")
+                self.response.write("CAPTION: " + caption)
+                self.response.write("<br/>")
+                self.response.write("<br/>")
+                if not (name == "" and caption == ""):
+                    photo.name = name
+                    photo.caption = caption
+            except:
+                break
+        group.put()
+        self.redirect("/newsfeed/view?group_id="+str(group_id))
 
 #This handler lets me look at all the groups that have been stored
 #in datastore. Used for debugging purposes.
@@ -219,6 +232,14 @@ class AboutHandler(webapp2.RequestHandler):
         self.response.write(fixed.render())
         about = jinja2_environment.get_template('templates/about.html')
         self.response.write(about.render())
+
+def get_photo_from_blob(blob_key):
+    photo_groups = PhotoGroup.query().fetch()
+    for photo_group in photo_groups:
+        for photo in photo_group.photos:
+            if photo.blob_key == blob_key:
+                return photo
+    return None
 
 def add_url_to_photogroup(new_photo_group):
     new_photo_group = new_photo_group.put()
