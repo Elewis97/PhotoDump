@@ -2,7 +2,6 @@
 body {
   overflow-x: hidden;
   overflow: scroll;
-  background-color: #E0F2F1;
   margin: 0;
   font-family: 'Raleway', sans-serif;
   padding-top: 10vh;
@@ -19,6 +18,7 @@ body {
   align-items: flex-start;
   margin: 0vmax;
   width:100%;
+
 }
 
 .welcomeSidebar {
@@ -29,6 +29,7 @@ body {
   width: 100%;
   backface-visibility: hidden;
   will-change: overflow;
+
 }
 
 #columnforsidebar {
@@ -36,8 +37,8 @@ body {
   flex-direction: column;
   text-align: center;
   padding: 1vw;
-  margin-bottom: 4vh;
   width: 20%;
+  margin-bottom: 10vh;
 }
 
 #welcometext {
@@ -48,7 +49,11 @@ body {
   word-wrap: break-word;
 }
 .info {
+  float: right;
+  text-align: right;
   padding-right: 2vw;
+  padding-bottom: 1vh;
+  font-size: 1.5vmax;
 }
 h2 {
   padding-top: 2vh;
@@ -61,17 +66,32 @@ h2 {
   flex-direction: column;
   align-self: stretch;
   width:100%;
-  margin-bottom: 3vh;
+  height: 100%;
+  margin-bottom: 5vh;
 }
 
 #newsfeedtitle {
   margin-left: 3%;
+  margin-bottom: 6vh;
   font-size: 4vh;
   text-shadow: .25vh 0vh .25vh #ccc, 0vh .25vh .25vh #eee,
   .5vh .25vh .25vh #ccc;
 }
-
 .feed {
+  display: flex;
+  flex-direction: column;
+  margin-left: 4%;
+  margin-right: 4%;
+
+}
+.newsfeed-groups {
+  display: flex;
+  background-color: white;
+  margin: 2vh;
+  justify-content: space-between;
+
+}
+/*.feed {
   overflow: scroll;
   text-align: center;
   display: flex;
@@ -83,22 +103,17 @@ h2 {
   margin-left: 4%;
   margin-right: 4%;
 
-}
+}*/
 
-.newsfeed-groups {
+/*.newsfeed-groups {
   display: flex;
   flex-direction: row;
   font-family: 'Merriweather';
-  text-align: right;
-  background-color: white;
-  margin-bottom: 3%;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-  align-content: flex-end;
-  align-items: center;
   width: 100%;
+  margin-top: 5%;
+  margin-bottom: 10%;
+}*/
 
-}
 
 .photogroup-pic {
   display: flex;
@@ -108,8 +123,7 @@ h2 {
   align-content: flex-end;
   align-items: flex-start;
   width:35%;
-  margin-top: 2.5vh;
-  margin-bottom: 2.5vh;
+  margin: 3vh;
   padding-right: .5vw;
   padding-left: .5vw;
 }
