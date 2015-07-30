@@ -27,6 +27,7 @@
         <div id = "allpics">
           {% for photo in group.photos %}
             <figure>
+              <figcaption> Name: {{photo.name}} </figcaption>
               <img id = "singlepic" src="{{photo.url}}">
               <figcaption> Taken by: {{photo.uploaded_by}} </figcaption>
               <figcaption> {{photo.caption}}</figcaption>
