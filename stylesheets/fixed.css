@@ -1,11 +1,7 @@
 body {
-<<<<<<< HEAD  
-  padding-top: 12vh;
+  padding-top: 12.5vh;
   overflow: scroll;
-=======
-  padding-top: 13vh;
   margin: 0;
->>>>>>> 12027d1099b1d6167e1562990d8b4348cb88889f
 }
 
 #header-container {

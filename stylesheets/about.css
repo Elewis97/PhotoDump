@@ -6,12 +6,10 @@ body {
 }
 
 h2 {
-    text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
-    2px 1px 1px #ccc, 1px 2px 1px #eee,
-    3px 2px 1px #ccc, 2px 3px 1px #eee,
-    4px 3px 1px #ccc;
-    font-size: 10vh;
+  color: black;
+  font-size: 10vh;
 }
+
 p {
   font-size: 2.5vh;
 }
@@ -28,8 +26,6 @@ p {
   text-align: center;
   padding-left: 10%;
   padding-right: 10%;
-
-
 }
 
 .bios{
