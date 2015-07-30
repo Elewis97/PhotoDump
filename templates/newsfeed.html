@@ -4,8 +4,10 @@
 <head>
   <link rel = "stylesheet" type = "text/css" href ="../stylesheets/newsfeed.css">
   <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet'
-  type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
+  <script src="lib/jquery.js" type="text/javascript"> </script>
+  <script src="lib/jquery-ui.js" type="text/javascript"> </script>
+  <script src="lib/newsfeed.js" type="text/javascript"> </script>
 </head>
 
 <body>
@@ -16,9 +18,13 @@
 
       <div id = "columnforsidebar">
         <h3 id = "welcometext"> Welcome {{greeting}}! </h3>
-        <form action="/create_group">
-          <input type="submit" value="Make a new group!">
-        </form>
+        <!-- <form action="/create_group">
+          <input id="create-group-btn" type="submit" value="Create Group">
+        </form> -->
+        <!-- <div id="create-group-btn"> Create Group </div> -->
+        <div id="btn-container">
+          <input id="create-group-btn" type="submit" value="Create Group">
+        </div>
         <span>Groups You've Created</span>
         {% for group in photo_group_data %}
           <div class="groups">
