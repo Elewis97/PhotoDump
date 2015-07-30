@@ -17,8 +17,9 @@ p {
 }
 
 #searchbox2 {
+  overflow: hidden;
   height: 3vh;
-  width: 10vw;
+  width: 18vw;
 }
 
 #welcomestuff {
