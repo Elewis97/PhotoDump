@@ -27,13 +27,10 @@
         <div id = "allpics">
           {% for photo in group.photos %}
             <figure>
-              <!-- Elle: trying to add an uploaded by -->
-
-            <figcaption> Uploaded by:{{ UploadedBy }} </figcaption>
-
-            <!-- End Elle -->
-            <img id = "singlepic" src="{{photo.url}}">
-            <figcaption> user caption datePosted </figcaption>
+              <img id = "singlepic" src="{{photo.url}}">
+              <figcaption> Taken by: {{photo.uploaded_by}} </figcaption>
+              <figcaption> {{photo.caption}}</figcaption>
+              <figcaption> uploaded: {{photo.date_created}} </figcaption>
             </figure>
           {% endfor %}
         </div>

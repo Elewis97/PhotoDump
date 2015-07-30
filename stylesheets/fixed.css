@@ -2,6 +2,7 @@ body {
   padding-top: 12.5vh;
   overflow: scroll;
   margin: 0;
+  padding-bottom: 0.5%;
 }
 
 #header-container {
