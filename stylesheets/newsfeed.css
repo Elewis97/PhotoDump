@@ -38,7 +38,7 @@ body {
   flex-direction: column;
   text-align: center;
   padding: 1vw;
-  width: 20%;
+  width: 20vw;
   margin-bottom: 10vh;
 }
 
@@ -60,9 +60,11 @@ h2 {
   background: radial-gradient(circle closest-side at 50% 50%, white, #D3F2F1);
   flex-direction: column;
   align-self: stretch;
-  width:100%;
+  width: 80vw;
   height: 100%;
   margin-bottom: 5vh;
+  padding-left: 2.5vw;
+  padding-right: 2.5vw;
 }
 
 #newsfeedtitle {
@@ -72,50 +74,69 @@ h2 {
   text-shadow: .25vh 0vh .25vh #ccc, 0vh .25vh .25vh #eee,
   .5vh .25vh .25vh #ccc;
 }
-.feed {
-  width: 80vw;
-}
+
 /*NEWSFEED START*/
-      .group-container {
-        padding: 2.5vh;
+
+      .feed {
+        width: 75vw;
       }
 
       .newsfeed-groups {
-        box-sizing: border-box;
-        width: 80vw;
-        height: 30vh;
+        width: 75vw;
+        height: 50vh;
         background-color: white;
-        margin-bottom: 2vh;
-        margin-left: 2vw;
         float: right;
+        margin-bottom: 4vh;
+      }
+
+      .image-area {
+        padding-right: 2vw;
+        padding-left: 1vw;
+        height: 50vh;
+        max-width: 30vw;
+        float: left;
+        font-size: 10vh;
       }
 
       .photogroup-pic {
-        height: 25vh;
-        float: left;
+        max-height: 50vh;
+        max-width: 30vw;
+        vertical-align: middle;
+        text-align: center;
+        padding-top: 2vh;
+        margin-left: auto;
+        margin-right: auto;
+        box-sizing: border-box;
       }
 
       .no-images {
-        width: 40vw;
-        font-size: 2vh;
+        vertical-align: middle;
+        background-color: #004D40;
+        color: white;
+        text-align: center;
       }
 
       .info {
-        width: 20vw;
-        height: 25vh;
-        float:right;
+        width: 40vw;
+        height: 50vh;
+        float:left;
+        text-align: center;
       }
 
       .photogroup-name {
-        font-size: 5vh;
+        padding-top: 7vh;
+        font-size: 8vh;
+        min-height: 9vh;
+        max-height: 9vh;
+        padding-bottom: 2vh;
         font-weight: bold;
-        height: 6vh;
       }
 
       .photogroup-description {
         font-size: 2.5vh;
-        height: 15vh;
-        background-color: #00BFA5;
+        padding-top: 2vh;
+        width: auto;
+        height: 20vh;
       }
 
       .photogroup-creator {
@@ -123,15 +144,20 @@ h2 {
         font-weight: lighter;
       }
 
-      #viewstuff {
+      .photogroup-view {
         color: #00BFA5;
         text-decoration: none;
         font-size: 2vh;
+        float: right;
       }
 
 
 /*NEWSFEED END*/
-
+#viewstuff {
+  color: #00BFA5;
+  text-decoration: none;
+  font-size: 2vh;
+}
 
 span {
   padding: .3vh;
@@ -174,13 +200,32 @@ input[type=submit] {
   margin-bottom: 2vh;
 }
 
+#create-group-form {
+  margin: 0;
+}
+
 .text-area {
   font-size: 2.5vh;
-  width: 100%;
+  width: 15vw;
   height: 5vh;
   border: 0;
+  border-radius: 0;
   margin-top: 1vh;
   margin-bottom: 1vh;
+}
+
+#group-name-description {
+  height: 10vh;
+  max-width: 15vw;
+  max-height: 20vh;
+}
+
+#text-area-submit {
+  margin-bottom: 0;
+}
+
+option {
+  border: 0;
 }
 
 /*.content {
