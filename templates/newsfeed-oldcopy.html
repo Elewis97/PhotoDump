@@ -36,30 +36,24 @@
 
       <div id="section">
         <h2 id ="newsfeedtitle">Check out your newsfeed!</h2>
-          <section class = "feed">
-
+          <div class = "feed">
             {% for group in photo_group_data %}
             <div class="newsfeed-groups">
-
-              <section class ="group-container">
-                {% if group.photos[0] is defined %}
-                  <img class = "photogroup-pic" src ="{{group.photos[0].url}}" />
-                {% else %}
-                  <div class="no-images"> THERE ARE NO IMAGES IN THIS GROUP </div>
-                {% endif %}
+              {% if group.photos[0] is defined %}
+                <img class = "photogroup-pic" src ="{{group.photos[0].url}}" />
+              {% else %}
+                <p id = "noimages"> THERE ARE NO IMAGES IN THIS GROUP </p>
+              {% endif %}
                 <div class="info">
-                  <div class="photogroup-name"> {{group.group_name}} </div>
-                  <div class="photogroup-description"> {{group.description}}</div>
-                  <div class="photogroup-creator"> Created by: {{group.created_by}}</div>
-                  <div class="photogroup-link">
-                  <a id = "viewstuff" href="/newsfeed/view?group_id={{group.key.id()}}"> View Group </a> </div>
-                </div>
-              </section>
-
+                  <p class="photogroup-name"> {{group.group_name}} </p>
+                  <p class="photogroup-description"> {{group.description}}</p>
+                  <p class="photogroup-creator"> Created by: {{group.created_by}}</p>
+                  <p class="photogroup-link"> <a id = "viewstuff"
+                    href="/newsfeed/view?group_id={{group.key.id()}}"> View Group </a> </p>
+              </div>
             </div>
             {% endfor %}
-
-        </section>
+        </div>
       </div>
 
     </div>

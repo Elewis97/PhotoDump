@@ -6,7 +6,6 @@ body {
   font-family: 'Raleway', sans-serif;
   padding-top: 10vh;
 }
-
 .newsfeed {
   overflow-x: scroll;
   overflow: hidden;
@@ -19,7 +18,6 @@ body {
   align-items: flex-start;
   margin: 0vmax;
   width:100%;
-
 }
 
 .welcomeSidebar {
@@ -49,7 +47,15 @@ body {
   font-size: 3vh;
   word-wrap: break-word;
 }
-
+.info {
+  float: right;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  padding-right: 2vw;
+  padding-bottom: 1vh;
+  font-size: 1.5vmax;
+}
 h2 {
   padding-top: 2vh;
 }
@@ -73,65 +79,45 @@ h2 {
   .5vh .25vh .25vh #ccc;
 }
 .feed {
-  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  margin-left: 4%;
+  margin-right: 4%;
+
 }
-/*NEWSFEED START*/
-      .group-container {
-        padding: 2.5vh;
-      }
-
-      .newsfeed-groups {
-        box-sizing: border-box;
-        width: 80vw;
-        height: 30vh;
-        background-color: white;
-        margin-bottom: 2vh;
-        margin-left: 2vw;
-        float: right;
-      }
-
-      .photogroup-pic {
-        height: 25vh;
-        float: left;
-      }
-
-      .no-images {
-        width: 40vw;
-        font-size: 2vh;
-      }
-
-      .info {
-        width: 20vw;
-        height: 25vh;
-        float:right;
-      }
-
-      .photogroup-name {
-        font-size: 5vh;
-        font-weight: bold;
-        height: 6vh;
-      }
-
-      .photogroup-description {
-        font-size: 2.5vh;
-        height: 15vh;
-        background-color: #00BFA5;
-      }
-
-      .photogroup-creator {
-        font-size: 1.5vh;
-        font-weight: lighter;
-      }
-
-      #viewstuff {
-        color: #00BFA5;
-        text-decoration: none;
-        font-size: 2vh;
-      }
+.newsfeed-groups {
+  display: flex;
+  background-color: white;
+  margin: 2vh;
+  justify-content: space-between;
+  flex: 1;
+  height: 60vh;
+}
 
 
-/*NEWSFEED END*/
+.photogroup-pic {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-content: flex-end;
+  align-items: flex-start;
+  height: inherit;
+  object-fit: cover;
+  margin: 3vh;
+  padding-right: .5vw;
+  padding-left: .5vw;
+}
 
+.photogroup-name {
+  font-size: 3.5vh;
+  font-weight: bold;
+}
+
+.photogroup-creator {
+  font-size: 1.5vh;
+  font-weight: lighter;
+}
 
 span {
   padding: .3vh;
@@ -183,6 +169,11 @@ input[type=submit] {
   margin-bottom: 1vh;
 }
 
+#viewstuff {
+  color: #00BFA5;
+  text-decoration: none;
+  font-size: 2vh;
+}
 /*.content {
   text-align: center;
   flex: 1;
