@@ -18,6 +18,7 @@ body {
   justify-content: flex-start;
   align-items: flex-start;
   margin: 0vmax;
+  width:100%;
 }
 
 .welcomeSidebar {
@@ -25,7 +26,7 @@ body {
   display: flex;
   background-color: #BEEDE7;
   height: 100%;
-  width: auto;
+  width: 100%;
   backface-visibility: hidden;
   will-change: overflow;
 }
@@ -45,6 +46,9 @@ body {
   .5vh .25vh .25vh #ccc;
   font-size: 3vh;
   word-wrap: break-word;
+}
+.info {
+  padding-right: 2vw;
 }
 h2 {
   padding-top: 2vh;
