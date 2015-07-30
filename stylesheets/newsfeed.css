@@ -92,7 +92,7 @@ h2 {
   margin: 2vh;
   justify-content: space-between;
   flex: 1;
-
+  height: 60vh;
 }
 
 
@@ -103,7 +103,7 @@ h2 {
   justify-content: space-around;
   align-content: flex-end;
   align-items: flex-start;
-  width:40%;
+  height: inherit;
   object-fit: cover;
   margin: 3vh;
   padding-right: .5vw;
