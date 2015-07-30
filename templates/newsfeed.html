@@ -35,30 +35,31 @@
       </div>
 
       <div id="section">
-        <h2 id ="newsfeedtitle">Check out your newsfeed!</h2>
-          <section class = "feed">
+        <h2 id ="newsfeedtitle">Check out your newsfeed! <input type="button" id="change-view" value="TEST BUTTON DO NOT REMOVE"> </h2>
 
+          <section class = "feed">
             {% for group in photo_group_data %}
             <div class="newsfeed-groups">
 
               <section class ="group-container">
+                <div class="image-area">
                 {% if group.photos[0] is defined %}
-                  <img class = "photogroup-pic" src ="{{group.photos[0].url}}" />
+                  <img class="photogroup-pic" src ="{{group.photos[0].url}}" />
                 {% else %}
-                  <div class="no-images"> THERE ARE NO IMAGES IN THIS GROUP </div>
+                  </span> <div class="no-images"> THERE ARE NO IMAGES IN THIS GROUP </div>
                 {% endif %}
+                </div>
                 <div class="info">
                   <div class="photogroup-name"> {{group.group_name}} </div>
                   <div class="photogroup-description"> {{group.description}}</div>
                   <div class="photogroup-creator"> Created by: {{group.created_by}}</div>
                   <div class="photogroup-link">
-                  <a id = "viewstuff" href="/newsfeed/view?group_id={{group.key.id()}}"> View Group </a> </div>
+                  <a class="photogroup-view" href="/newsfeed/view?group_id={{group.key.id()}}"> View Group </a> </div>
                 </div>
               </section>
 
             </div>
             {% endfor %}
-
         </section>
       </div>
 

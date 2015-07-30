@@ -4,10 +4,10 @@
 <head>
     <title> PhotoDump </title>
     <link rel = "stylesheet" type = "text/css" href="../stylesheets/welcome.css">
-    <link rel = "stylesheet" type = "text/css" href="/stylesheets/group.css">
+    <link rel = "stylesheet" type = "text/css" href="../stylesheets/group.css">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'
      type='text/css'>
-     <script src="lib/jquery.js"></script>
+     <script src="../lib/jquery.js"></script>
 </head>
 
 <body>
@@ -33,11 +33,18 @@
           {% for photo in group.photos %}
             <figure>
 
-              <figcaption> Name: {{photo.name}} </figcaption>
+              <figcaption id = "name"> Name: {{photo.name}} </figcaption>
+              <div><a href=" " title="Edit this photo"><img id = "edit"
+              src = "../resources/images/edit.png"></a>
+                <a href=" " title="Delete this photo"><img id = "delete"
+                src = "../resources/images/delete.png"></a><div>
               <img id = "singlepic" src="{{photo.url}}">
-              <figcaption> Taken by: {{photo.uploaded_by}} </figcaption>
-              <figcaption> {{photo.caption}}</figcaption>
-              <figcaption> uploaded: {{photo.date_created}} </figcaption>
+              <div><br><figcaption id = "bottomtext">
+                Uploaded by: {{photo.uploaded_by}} </figcaption>
+              <br><figcaption id = "bottomtext"> {{photo.caption}}
+              </figcaption>
+              <br><figcaption id = "bottomtext">
+                Date Uploaded: {{photo.date_created}} </figcaption></div>
             </figure>
           {% endfor %}
         </div>
