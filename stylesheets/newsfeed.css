@@ -91,13 +91,14 @@ h2 {
   font-family: 'Merriweather';
   text-align: right;
   background-color: white;
-  /*border-radius: 10vh;*/
   margin-bottom: 3%;
   flex-wrap: nowrap;
   justify-content: space-around;
   align-content: flex-end;
   align-items: center;
-  width: 80%;
+  width: 100%;
+  margin-left: 30vw;
+
 }
 
 .photogroup-pic {
@@ -107,7 +108,7 @@ h2 {
   justify-content: space-around;
   align-content: flex-end;
   align-items: flex-start;
-  width:40%;
+  width:35%;
   margin-top: 2.5vh;
   margin-bottom: 2.5vh;
   padding-right: .5vw;
