@@ -171,7 +171,6 @@ class EditUploadsHandler(blobstore_handlers.BlobstoreUploadHandler):
                 group.photos += [photo]
                 group.put()
             template = jinja2_environment.get_template('templates/edit.html')
-            self.response.write(template.render())
             self.response.write("Success")
         except:
             self.response.write("failure")
