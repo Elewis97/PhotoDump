@@ -1,6 +1,5 @@
 
 .groupfeed {
-  overflow: scroll;
   display: flex;
   align-self: auto;
   flex-direction: row;
@@ -17,10 +16,10 @@
 }
 
 #leftsidebar {
-  overflow: scroll;
   flex-direction: column;
   text-align: center;
   padding: 1vw;
+  margin-top: 4vh;
   margin-bottom: 4vh;
   width: 20%;
   height: 100%;
@@ -47,9 +46,9 @@
 #edit {
   float: right;
   top:0;
-  height: 5vh;
-  margin-top: -6vh;
-  margin-right: 6vh;
+  height: 4.5vh;
+  margin-top: -5.7vh;
+  margin-right: 5vh;
 }
 #delete {
   float: right;
@@ -57,7 +56,6 @@
   margin-top: -6vh;
 }
 #bottomtext {
-
   float: right;
 }
 figure {
@@ -74,14 +72,13 @@ figure {
   padding-bottom: 6vh;
 }
 input[type=submit]{
-  height: 2vmax;
-  width: 12vmax;
   font-size: 2vh;
 }
 #name {
   float:left;
   font-size: 2.5vh;
   margin-bottom: 2vh;
+  font-weight: bolder;
 }
 #takenby {
   margin-top: 2vh;
@@ -90,7 +87,7 @@ figcaption {
   font-size: 2vh;
 }
 #singlepic {
-  height: 300px;
+  height: 70%;
 }
 #groupname {
 margin-left: 1vw;
