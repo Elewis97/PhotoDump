@@ -3,44 +3,58 @@ body {
   background: radial-gradient(circle closest-side at 50% 50%, white, #D3F2F1);
   margin: 0;
   padding-top: 13vh;
+  font-family: 'Raleway';
 }
 
+h1 {
+  margin-top: 2vh;
+  font-size: 11vh;
+  text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
+  2px 1px 1px #ccc, 1px 2px 1px #eee,
+  3px 2px 1px #ccc, 2px 3px 1px #eee,
+  4px 3px 1px #ccc;
+}
 h2 {
   color: black;
-  font-size: 10vh;
+  font-size: 7vh;
+  text-shadow: 1px 0px 1px #ccc, 0px 1px 1px #eee,
+  2px 1px 1px #ccc, 1px 2px 1px #eee,
+  3px 2px 1px #ccc;
+  margin-bottom: -1%;
+}
+h3 {
+  font-size: 4.5vh;
+}
+#description {
+  margin-bottom: 10%;
+}
+#desc {
+  font-size: 2.6vh;
+}
+p {
+  font-size: 2.1vh;
 }
 
-p {
-  font-size: 2.5vh;
-}
-#pic1 {
-    margin-top: 2%;
-    padding-left: 1%;
-}
-#searchbox2 {
-  height: 3vh;
-  width: 10vw;
-}
 
 #Summary {
   text-align: center;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 4%;
+  padding-right: 4%;
 }
 
 .bios{
-    display: flex;
-    justify-content: space-between;
-    text-shadow: none;
+  display: flex;
+  justify-content: space-between;
+  text-shadow: none;
 }
 
 .people {
-  background-color: #4DB6AC;
-  width: 32%;
-  padding: 10px;
+  width: 30%;
+  padding: 1%;
   margin: 1%;
+  margin-bottom: 5%;
   text-align: center;
-  border-radius: 25px;
+  border-radius: 5%;
   text-shadow: none;
 
 }
