@@ -73,6 +73,8 @@ class NewsfeedHandler(webapp2.RequestHandler):
             template_vars = {"photo_group_data" : photo_group_data, "greeting" : greeting}
             self.response.write(template.render(template_vars))
 
+
+
 #This handler is needed in order to create a group.
 #NEEDED FOR TESTING PURPOSES
 class CreateGroupHandler(webapp2.RequestHandler):
@@ -274,13 +276,27 @@ class DeleteHandler(webapp2.RequestHandler):
     def get(self):
         fixed = jinja2_environment.get_template('templates/fixed.html')
         self.response.write(fixed.render())
-        about = jinja2_environment.get_template('templates/delete.html')
-        self.response.write(about.render())
-        # group_id2 = int(self.request.get('group_id2'))
-        # delete_group = PhotoGroup.get_by_id(group_id2)
-        # delete_group.key.delete()
-        # template_vars = { "delete_group" : delete_group}
-        # self.response.write(template.render(template_vars))
+        group_id2 = int(self.request.get('group_id'))
+        delete_group = PhotoGroup.get_by_id(group_id2)
+        #delete_group.key.delete()
+        template_vars = { "delete_group" : delete_group}
+        delete = jinja2_environment.get_template('templates/delete.html')
+        self.response.write(delete.render(template_vars))
+        u = get_user_model()
+        logging.info(">>>" + str(u.user))
+        logging.info(u.users_photo_group_keys)
+
+class ActualDeleteHandler(webapp2.RequestHandler):
+    def post(self):
+        group_id2 = int(self.request.get('group_id'))
+        delete_group = PhotoGroup.get_by_id(group_id2)
+        delete_group.key.delete()
+        u = get_user_model()
+        u.users_photo_group_keys.remove(delete_group.key)
+        logging.info('key removed:' + str(delete_group.key))
+        logging.info('users list of keys:' + str(u.users_photo_group_keys))
+        u.put()
+        self.redirect('/newsfeed')
 
 # End Eleanor's Changes
 
@@ -303,5 +319,6 @@ app = webapp2.WSGIApplication([
     ('/create_group', CreateGroupHandler),
     ('/search', GroupSearchHandler),
     ('/about', AboutHandler),
-    ('/delete', DeleteHandler)
+    ('/delete', DeleteHandler),
+    ('/actualdelete', ActualDeleteHandler)
 ], debug=True)

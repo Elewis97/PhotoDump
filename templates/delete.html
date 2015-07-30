@@ -14,7 +14,8 @@
 
   <div class='answer'>
 
-    <form class='buttons' action="/newsfeed" method="GET">
+    <form class='buttons' action="/actualdelete" method ="POST">
+      <input type="hidden" name="group_id" value="{{delete_group.key.id()}}">
       <button type="submit">Yes</button>
     </form>
 

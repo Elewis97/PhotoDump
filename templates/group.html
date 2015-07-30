@@ -22,6 +22,7 @@
           </form>
           <!-- Elle's Changes -->
           <form action="/delete">
+            <input type="hidden" name="group_id" value="{{group.key.id()}}">
             <button type="submit">Delete Group</button>
           </form>
           <!-- Elle's Changes -->
@@ -32,6 +33,7 @@
           {% for photo in group.photos %}
             <figure>
 
+              <figcaption> Name: {{photo.name}} </figcaption>
               <img id = "singlepic" src="{{photo.url}}">
               <figcaption> Taken by: {{photo.uploaded_by}} </figcaption>
               <figcaption> {{photo.caption}}</figcaption>
