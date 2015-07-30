@@ -44,6 +44,22 @@
   margin-right: auto;
   padding-bottom: 4vh;
 }
+#edit {
+  float: right;
+  top:0;
+  height: 5vh;
+  margin-top: -6vh;
+  margin-right: 6vh;
+}
+#delete {
+  float: right;
+  height: 5vh;
+  margin-top: -6vh;
+}
+#bottomtext {
+
+  float: right;
+}
 figure {
   background-color: white;
   text-align: center;
@@ -54,15 +70,25 @@ figure {
   align-items: center;
   flex: 1;
   padding: 2vh;
-  margin-bottom: 5vh;
-  padding-bottom: 12vh;
+  margin-bottom: 2vh;
+  padding-bottom: 6vh;
 }
 input[type=submit]{
   height: 2vmax;
   width: 12vmax;
   font-size: 2vh;
 }
-
+#name {
+  float:left;
+  font-size: 2.5vh;
+  margin-bottom: 2vh;
+}
+#takenby {
+  margin-top: 2vh;
+}
+figcaption {
+  font-size: 2vh;
+}
 #singlepic {
   height: 300px;
 }
