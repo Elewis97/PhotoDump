@@ -5,7 +5,7 @@
     <title> PhotoDump </title>
     <link rel = "stylesheet" type = "text/css" href="../stylesheets/welcome.css">
     <link rel = "stylesheet" type = "text/css" href="../stylesheets/group.css">
-    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'
      type='text/css'>
      <script src="../lib/jquery.js"></script>
 </head>
@@ -20,13 +20,19 @@
             <input type="hidden" name="group_id" value="{{group.key.id()}}">
             <input type="submit" value="Upload photos!"></input>
           </form>
-
+          <!-- Elle's Changes -->
+          <form action="/delete">
+            <input type="hidden" name="group_id" value="{{group.key.id()}}">
+            <button type="submit">Delete Group</button>
+          </form>
+          <!-- Elle's Changes -->
       </div>
 
       <div id = "rightsidebar">
         <div id = "allpics">
           {% for photo in group.photos %}
             <figure>
+
               <figcaption id = "name"> Name: {{photo.name}} </figcaption>
               <div><a href=" " title="Edit this photo"><img id = "edit"
               src = "../resources/images/edit.png"></a>
