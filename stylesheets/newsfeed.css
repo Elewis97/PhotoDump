@@ -94,6 +94,9 @@ h2 {
         padding-left: 1vw;
         height: 50vh;
         max-width: 30vw;
+        float: left;
+        font-size: 10vh;
+      }
 
       .photogroup-pic {
         max-height: 50vh;
@@ -107,6 +110,7 @@ h2 {
       }
 
       .no-images {
+        margin-top: 2vh;
         vertical-align: middle;
         background-color: #004D40;
         color: white;
@@ -230,18 +234,14 @@ option {
   flex: 1;
   background-color: #B2DFDB;
 }
-
 .nav, .aside {
   text-align: center;
   flex: 0 0 12em;
 }
-
 .nav {
   order: -1;
   background-color: #E0F2F1;
-
 }
-
 .aside{
     background-color: #00BFA5;
 }*/
