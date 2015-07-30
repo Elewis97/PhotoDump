@@ -20,20 +20,21 @@
             <input type="hidden" name="group_id" value="{{group.key.id()}}">
             <input type="submit" value="Upload photos!"></input>
           </form>
-
+          <!-- Elle's Changes -->
+          <form action="/delete">
+            <button type="submit">Delete Group</button>
+          </form>
+          <!-- Elle's Changes -->
       </div>
 
       <div id = "rightsidebar">
         <div id = "allpics">
           {% for photo in group.photos %}
             <figure>
-              <!-- Elle: trying to add an uploaded by -->
 
-            <figcaption> Uploaded by:{{ UploadedBy }} </figcaption>
-
-            <!-- End Elle -->
             <img id = "singlepic" src="{{photo.url}}">
             <figcaption> user caption datePosted </figcaption>
+
             </figure>
           {% endfor %}
         </div>
