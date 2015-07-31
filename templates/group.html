@@ -32,12 +32,11 @@
         <div id = "allpics">
           {% for photo in group.photos %}
             <figure>
-
               <figcaption id = "name"> Name: {{photo.name}} </figcaption>
-              <div><a href=" " title="Edit this photo"><img id = "edit"
-              src = "../resources/images/edit.png"></a>
-                <a href=" " title="Delete this photo"><img id = "delete"
-                src = "../resources/images/delete.png"></a><div>
+              <!-- <div><a href=" " title="Edit this photo"><img id = "edit" -->
+              <!-- src = "../resources/images/edit.png"></a> -->
+                <!-- <a href=" " title="Delete this photo"><img id = "delete" -->
+                <!-- src = "../resources/images/delete.png"></a><div> -->
               <img id = "singlepic" src="{{photo.url}}">
               <div><br><figcaption id = "bottomtext">
                 Uploaded by: {{photo.uploaded_by}} </figcaption>
